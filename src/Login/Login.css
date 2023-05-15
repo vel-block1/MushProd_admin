@@ -5,7 +5,15 @@
   justify-content: center;
   align-items: center;
   margin: auto;
-  background: linear-gradient(45deg, #810551, #00464e);
+  background: rgb(0, 151, 200);
+  background: linear-gradient(
+    17deg,
+    rgba(0, 151, 200, 1) 0%,
+    rgba(38, 186, 218, 1) 26%,
+    rgba(0, 188, 212, 1) 49%,
+    rgba(178, 235, 242, 1) 76%,
+    rgba(224, 247, 250, 1) 100%
+  );
   widows: 400px;
   aspect-ratio: 1;
   border-radius: 10px;
@@ -34,7 +42,15 @@
 }
 
 .login-page header span i {
-  background: linear-gradient(90deg, #ff009d, #09b4c7);
+  background: rgb(0, 151, 200);
+  background: linear-gradient(
+    17deg,
+    rgba(0, 151, 200, 1) 0%,
+    rgba(38, 186, 218, 1) 26%,
+    rgba(0, 188, 212, 1) 49%,
+    rgba(178, 235, 242, 1) 76%,
+    rgba(224, 247, 250, 1) 100%
+  );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -50,7 +66,15 @@
   font-size: 25px;
   text-align: center;
   font-weight: bold;
-  background: linear-gradient(45deg, #810551, #00464e);
+  background: rgb(0, 151, 200);
+  background: linear-gradient(
+    17deg,
+    rgba(0, 151, 200, 1) 0%,
+    rgba(38, 186, 218, 1) 26%,
+    rgba(0, 188, 212, 1) 49%,
+    rgba(178, 235, 242, 1) 76%,
+    rgba(224, 247, 250, 1) 100%
+  );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -75,7 +99,7 @@
   border: none;
   background-color: transparent;
   padding: 20px 10px 3px;
-  border-bottom: 1px solid #810551;
+  border-bottom: 1px solid #26bada;
   color: white;
 }
 
@@ -94,7 +118,7 @@
 .login-page form input:focus ~ label,
 .login-page form input:valid ~ label {
   top: 0;
-  color: #bb0c78;
+  color: #26bada;
 }
 
 .status {
@@ -116,7 +140,7 @@
   text-align: center;
 }
 .login-page form button {
-  background-color: #810551;
+  background-color: #26bada;
   border: none;
   border-radius: 3px;
   margin-top: 20px;
@@ -135,6 +159,6 @@ button:active {
   margin: 0 auto;
 }
 .user-stat b {
-  color: #aa0c6e;
+  color: #26bada;
   cursor: pointer;
 }

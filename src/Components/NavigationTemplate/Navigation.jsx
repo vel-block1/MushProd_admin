@@ -2,7 +2,7 @@ import Nav from "../NavIconTemplate/Nav";
 import "./Navigation.css";
 import { FiChevronLeft, FiBell } from "react-icons/fi";
 import { TbDashboard, TbFileUpload, TbFilePencil } from "react-icons/tb";
-
+import { FiUser } from "react-icons/fi";
 import { MdSwapHoriz } from "react-icons/md";
 
 import { useContext, useEffect, useState } from "react";
@@ -25,9 +25,17 @@ const Navigation = () => {
   const logout = () => {
     signOut(auth);
   };
+
   useEffect(() => {
-    setusername(localStorage.getItem("username"));
-  });
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setusername(user.email);
+      }
+    });
+
+    return unsubscribe;
+  }, []);
+
   return (
     <div className={`navigation ${nav && "active"} ${DarkTheme && "dark"}`}>
       <div
@@ -40,9 +48,9 @@ const Navigation = () => {
       </div>
       <header>
         <div className="profile">
-          <img src="" alt="user-img" className="profile-img" />
+          <FiUser className="profile-img" />
         </div>
-        <span>{username}</span>
+        <span>{username} </span>
       </header>
       <NavLink to="/">
         <Nav Icon={TbDashboard} title={"Dashboard"} />

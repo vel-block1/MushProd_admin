@@ -1,0 +1,27 @@
+.datetime {
+  display: flex;
+  justify-content: flex-end;
+  padding: 2rem;
+  align-items: center;
+  flex-direction: row;
+}
+
+.datetime .date-div {
+  display: flex;
+  align-items: center;
+}
+.datetime .time-div {
+  display: flex;
+  align-items: center;
+  margin-left: 1rem;
+}
+.datetime .time {
+  padding-right: 1rem;
+  font-size: 2rem;
+}
+
+.datetime .icon {
+  margin-right: 0.5rem;
+
+  font-size: 2rem; /* use em for font-size */
+}

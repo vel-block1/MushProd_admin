@@ -46,12 +46,13 @@ const Login = () => {
     <div className="login-page">
       <header>
         <span>
-          from <i>Infinity Studios</i>
+          from <i>Beta Peak</i>
         </span>
       </header>
       <img className="logo" src={infinity} alt="Logo" />
       <h2 className="title">
-        Sub-Min <br />
+        MushProd
+        <br />
         Dashboard
       </h2>
 
