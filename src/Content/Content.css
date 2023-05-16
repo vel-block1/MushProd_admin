@@ -12,11 +12,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(40deg, var(--clr-i), var(--clr-ii));
+  background: #c3c6c9;
   padding: 10px;
   border-radius: 10px;
   transition: 0.2s ease;
   overflow: hidden;
+}
+.content.dark .row {
+  background: #232a31;
 }
 
 .content .row:hover {
@@ -25,8 +28,6 @@
 
 .content .row.header {
   height: 15rem;
-  --clr-i: #2b405b;
-  --clr-ii: #0f1b39;
 }
 
 .content .row.header:nth-child(1) {
@@ -38,11 +39,20 @@
 }
 
 .content .row.header .txt-head {
-  color: rgba(255, 255, 255, 0.779);
+  color: #111418;
   font-size: 2.5rem;
   font-family: "Inter", sans-serif;
   font-family: "Lato", sans-serif;
   font-weight: 500;
+}
+.content.dark .row.header .txt-head {
+  color: #ffffff;
+}
+.content .row.header .last-monitor {
+  color: #38434f;
+}
+.content.dark .row.header .last-monitor {
+  color: #b7b9ba;
 }
 .content .row.header .txt-temp {
   font-size: 5rem;
@@ -51,17 +61,19 @@
 .content .row .divider {
   height: 1px;
   width: 35%;
-  background-color: rgba(255, 255, 255, 0.652);
+  background-color: #111418;
   margin: 2px 0;
 }
-
+.content.dark .row .divider {
+  background-color: #ffffff;
+}
 .content .row.header .temperature {
   display: flex;
   padding: 10px 16px;
   background-color: rgba(255, 255, 255, 0.24);
   border-radius: 50px;
   gap: 15px;
-  color: white;
+  color: #ffffff;
 }
 
 .content .section-title {
@@ -72,8 +84,6 @@
 }
 .content .row.square {
   aspect-ratio: 1;
-  --clr-i: #2b405b;
-  --clr-ii: #0f1b39;
 }
 .content .row.square::after {
   position: absolute;
@@ -86,83 +96,70 @@
 
 .content.dark .row.square::after {
   background-color: var(--dm-bg);
-}
-
-.content .row.inv-bg {
-  --clr-i: #2b405b;
-  --clr-ii: #0f1b39;
-}
-
-.tall-square-header .left,
-.tall-square-header .right {
-  display: flex;
-  gap: 15px;
-}
-.tall-square-header .left .icon,
-.tall-square-header .right .icon {
-  color: white;
-  font-size: 18px;
+  color: #111418;
 }
 
 .content .row.side-rect {
   height: 150px;
-  --clr-i: #2b405b;
-  --clr-ii: #0f1b39;
+  height: 100%;
   grid-column: span 2;
-  align-items: flex-start;
-  justify-content: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-
+.content.dark .row.side-rect {
+  color: #111418;
+}
 .content .row.side-rect section {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
-  --dm-stroke-clr: #e4e4e4;
+  --dm-stroke-clr: #111418;
 }
 .content.dark .row.side-rect section {
-  --dm-stroke-clr: #111;
+  --dm-stroke-clr: #ffffff;
 }
 
-.content .row.side-rect section .number_bags {
+.content .row.side-rect section .yield-details {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 7px;
 }
-.content .row.side-rect section .number_bags .number_bags-title {
+
+.content .row.side-rect section .yield-details .yield-title {
   font-size: 20px;
-  color: white;
-  height: 0;
-  overflow: hidden;
-  translate: 0 3px;
+  color: #111418;
+  /* overflow: hidden; */
+  /* translate: 0 3px;
   animation: reveal 0.6s ease-out 1s forwards;
-  --h: 25px;
+  --h: 25px; */
 }
-@keyframes reveal {
+
+.content .row.side-rect section .row.header .yield-txt {
+  font-size: 14px;
+  color: #ffffff;
+  text-align: center;
+  /* overflow: hidden; */
+  /* translate: 0 5px;
+  animation: reveal 0.6s ease-out 1s forwards;
+  --h: 52px; */
+}
+.content .row.side-rect section .row.header .txt-temp {
+  color: #111418;
+}
+.content.dark .row.side-rect section .row.header .txt-temp {
+  color: #ffffff;
+}
+.content.dark .row.side-rect section .row.header .txt-head,
+.content.dark .row.side-rect section .row.header .txt-head {
+  color: #ffffff;
+}
+/* @keyframes reveal {
   to {
     translate: 0;
     height: var(--h);
   }
-}
-
-.content .row.side-rect section .number_bags .number_bags-info {
-  font-size: 14px;
-  color: rgba(128, 128, 128, 0.656);
-  text-align: center;
-  overflow: hidden;
-  translate: 0 5px;
-  animation: reveal 0.6s ease-out 1s forwards;
-  --h: 52px;
-}
-.content .row.side-rect section .yield-details {
-  margin-left: 6px;
-}
-.content .row.side-rect section .yield-details .title {
-  font-size: 18px;
-  color: white;
-}
-.content .row.side-rect section .yield-details .txt {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.657);
-}
+} */

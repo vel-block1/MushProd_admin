@@ -15,10 +15,10 @@ const Content = () => {
   const [value_ii] = useState(Math.floor(Math.random() * 100));
   const [value_ii_offset] = useState(315 - (value_ii / 100) * 315);
   // Date
-  const date = new Date();
-  const day = date.toLocaleDateString("en-US", { day: "numeric" });
-  const month = date.toLocaleDateString("en-US", { month: "long" });
-  const year = date.toLocaleDateString("en-US", { year: "numeric" });
+  // const date = new Date();
+  // const day = date.toLocaleDateString("en-US", { day: "numeric" });
+  // const month = date.toLocaleDateString("en-US", { month: "long" });
+  // const year = date.toLocaleDateString("en-US", { year: "numeric" });
   // Date
 
   return (
@@ -44,45 +44,19 @@ const Content = () => {
         <Analytics chart_ii />
       </div>
 
-      <span className="section-title">Analytic Tools</span>
-      <div className="row side-rect">
-        <section>
-          <CircularProgress
-            color="#85def6"
-            value={value_i}
-            offset={value_i_offset}
-          />
-          <div className="number_bags">
-            <h2 className="number_bags-title">Total Number of Bags</h2>
-            <span className="number_bags-info">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi,
-              necessitatibus. Illo aspernatur error, dolorum quod rerum cumque
-              porro perferendis repellat.
-            </span>
-          </div>
-          <CircularProgress
-            color="#b8ccff"
-            value={value_ii}
-            offset={value_ii_offset}
-          />
-        </section>
-      </div>
       <div className="row side-rect">
         <section>
           {" "}
-          <CircularProgress
-            color="#85def6"
-            value={value_ii}
-            offset={value_ii_offset}
-          />
-          <div className="yield-details">
-            <h1 className="title">Yield Analysis</h1>
-            <span className="txt">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Exercitationem ducimus dicta aliquam quae non facere molestiae
-              temporibus, earum debitis fugit officiis tempore, incidunt
-              perspiciatis cum nostrum. Quam numquam adipisci ullam.
-            </span>
+          <div className="row header">
+            <h2 className="txt-head">Yield Predicted </h2>
+            <span className="last-monitor">May 15, 2023</span>
+            <div className="divider"></div>
+            <h1 className="txt-temp">43g-40g</h1>
+            {/* <CircularProgress
+              color="#85def6"
+              value={value_ii}
+              offset={value_ii_offset}
+            /> */}
           </div>
         </section>
       </div>
