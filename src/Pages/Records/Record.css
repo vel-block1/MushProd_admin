@@ -3,10 +3,15 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  background-color: #ffffff;
+  background-color: #e2e2e2;
   min-height: 100vh;
   --dm-bg: #111;
-  --lm-c: #ffffff;
+  --lm-c: #e2e2e2;
+}
+header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
 }
 h1 {
   text-align: center;

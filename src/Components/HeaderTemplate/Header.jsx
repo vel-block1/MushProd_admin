@@ -12,6 +12,7 @@ import { TbMessages } from "react-icons/tb";
 import { HiOutlineMoon, HiOutlineLogout } from "react-icons/hi";
 import { signOut } from "firebase/auth";
 import { auth } from "../../Firebase";
+import DateTime from "../DateTime/DateTime";
 
 const Header = () => {
   const { DarkTheme, setDarkTheme } = useContext(ThemeContext);
@@ -24,12 +25,12 @@ const Header = () => {
   };
   return (
     <header className={` ${DarkTheme && "dark"}`}>
-      <div className="search-bar">
+      {/* <div className="search-bar">
         <input type="text" placeholder="search..." />
         <BiSearch className="icon" />
-      </div>
-
-      <div className="tools">
+      </div> */}
+      <DateTime />
+      {/* <div className="tools">
         <AiOutlineUser className="icon" />
         <TbMessages className="icon" />
         <IoAnalytics className="icon" />
@@ -49,7 +50,7 @@ const Header = () => {
             className="profile-img"
           />
         </div>
-      </div>
+      </div> */}
     </header>
   );
 };
