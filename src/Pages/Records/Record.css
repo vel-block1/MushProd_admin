@@ -13,6 +13,11 @@ header {
   justify-content: flex-end;
   align-items: flex-end;
 }
+.record .addBags {
+  display: flex;
+
+  padding: 0rem 2rem;
+}
 h1 {
   text-align: center;
   padding: 2rem;

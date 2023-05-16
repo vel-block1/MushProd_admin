@@ -3,6 +3,7 @@ import "./Content.css";
 import { ThemeContext } from "../ThemeContext";
 
 import Analytics from "../Components/AnalyticsTemplate/Analytics";
+import Header from "../Components/HeaderTemplate/Header";
 
 const Content = () => {
   const [username, setusername] = useState();
