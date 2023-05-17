@@ -37,7 +37,6 @@ const Record = () => {
     });
     setNewDate("");
     setNewBag(0);
-
     refreshBags();
     document.getElementById("date-input").value = "";
     document.getElementById("quantity-input").value = "";
@@ -79,8 +78,8 @@ const Record = () => {
     <>
       <div className={`record ${DarkTheme && "dark"}`}>
         <Header />
-        {/* <>
-          <div className="addBags">
+        <>
+          {/* <div className="addBags">
             <TextField
               id="date-input"
               label="Enter Date"
@@ -98,7 +97,7 @@ const Record = () => {
           </div>
 
           <input
-            id="quantity-input"
+            id="date-input"
             placeholder="Date..."
             type="date"
             onChange={(event) => {
@@ -113,8 +112,8 @@ const Record = () => {
               setNewBag(event.target.value);
             }}
           />
-          <button onClick={addBag}> Add Bag</button>
-        </> */}
+          <button onClick={addBag}> Add Bag</button> */}
+        </>
         <h1>Records</h1>
 
         <TableContainer
@@ -145,7 +144,7 @@ const Record = () => {
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell className="tbl-cell" component="th" scope="row">
-                    {bag.quantity}
+                    {bag.date}
                   </TableCell>
                   <TableCell className="tbl-cell" align="right">
                     {bag.quantity}
@@ -157,6 +156,9 @@ const Record = () => {
                       label="Quantity"
                       variant="standard"
                       type="number "
+                      InputLabelProps={{
+                        style: { color: { DarkTheme } ? "#6f6f6f" : "#6f6f6f" },
+                      }}
                       onChange={(event) => {
                         setReduce(event.target.value);
                       }}

@@ -79,8 +79,8 @@ const Analytics = ({ chart_i, chart_ii }) => {
             <XAxis dataKey="name" />
             <Tooltip />
             <Legend />
-            <Bar dataKey="Removed" fill="#70284c" />
-            <Bar dataKey="Added" fill="#54d2a6" />
+            <Bar dataKey="Removed" fill="#e12121" />
+            <Bar dataKey="Added" fill="#3dca05" />
           </BarChart>
         </>
       )}
@@ -99,8 +99,8 @@ const Analytics = ({ chart_i, chart_ii }) => {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="temperature" stroke="#2b405b" />
-            <Line type="monotone" dataKey="humidity" stroke="#85def6" />
+            <Line type="monotone" dataKey="temperature" stroke="#3333f8" />
+            <Line type="monotone" dataKey="humidity" stroke="#014f50" />
           </LineChart>
         </>
       )}

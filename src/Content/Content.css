@@ -45,6 +45,17 @@
   font-family: "Lato", sans-serif;
   font-weight: 500;
 }
+.content .row.header .txt-humid {
+  color: #046768;
+  font-size: 5rem;
+}
+.content.dark .row.header .txt-humid {
+  color: #0be4e8;
+  font-size: 5rem;
+}
+.content .row.header .txt-head.temp {
+  color: #014f50;
+}
 .content.dark .row.header .txt-head {
   color: #ffffff;
 }
@@ -56,8 +67,11 @@
 }
 .content .row.header .txt-temp {
   font-size: 5rem;
+  color: #010f78;
 }
-
+.content.dark .row.header .txt-temp {
+  color: #465cff;
+}
 .content .row .divider {
   height: 1px;
   width: 35%;

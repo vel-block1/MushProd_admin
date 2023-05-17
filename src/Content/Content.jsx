@@ -23,16 +23,16 @@ const Content = () => {
   return (
     <div className={`content ${DarkTheme && "dark"}`}>
       <div className="row header">
-        <h1 className="txt-head"> Temperature</h1>
+        <h1 className="txt-head "> Temperature</h1>
         <span className="last-monitor">as of May 15, 2023 10 am</span>
         <div className="divider"></div>
         <h1 className="txt-temp">34°C</h1>
       </div>
       <div className="row header">
-        <h1 className="txt-head"> Humidity</h1>
+        <h1 className="txt-head "> Humidity</h1>
         <span className="last-monitor">as of May 15, 2023 10 am</span>
         <div className="divider"></div>
-        <h1 className="txt-temp">43%</h1>
+        <h1 className="txt-humid">43%</h1>
       </div>
       <span className="section-title">Brief Overview</span>
       <div className="row square">
