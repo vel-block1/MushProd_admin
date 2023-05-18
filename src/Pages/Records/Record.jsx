@@ -3,16 +3,6 @@ import { useState, useContext, useEffect } from "react";
 import { ThemeContext } from "../../ThemeContext";
 import Header from "../../Components/HeaderTemplate/Header";
 
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-
 import { db } from "../../Firebase";
 import {
   collection,
@@ -79,23 +69,6 @@ const Record = () => {
       <div className={`record ${DarkTheme && "dark"}`}>
         <Header />
         <>
-          {/* <div className="addBags">
-            <TextField
-              id="date-input"
-              label="Enter Date"
-              placeholder="Date"
-              type="date"
-              multiline
-            />
-            <TextField
-              id="date-input"
-              label="Enter Quantity"
-              placeholder="Quantity"
-              type="number"
-              multiline
-            />
-          </div>
-
           <input
             id="date-input"
             placeholder="Date..."
@@ -112,82 +85,53 @@ const Record = () => {
               setNewBag(event.target.value);
             }}
           />
-          <button onClick={addBag}> Add Bag</button> */}
+          <button onClick={addBag}> Add Bag</button>
         </>
         <h1>Records</h1>
 
-        <TableContainer
-          className={`record ${DarkTheme && "dark"} table-cont`}
-          component={Paper}
-        >
-          <Table
-            className="table"
-            sx={{ minWidth: 650 }}
-            aria-label="simple table"
-          >
-            <TableHead className="tbl-head">
-              <TableRow className="tbl-title" hover>
-                <TableCell className="tbl-txt">Date</TableCell>
-                <TableCell className="tbl-txt" align="right">
-                  Quantity
-                </TableCell>
-                <TableCell align="right"></TableCell>
-                <TableCell align="right"></TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody className="tbl-body">
-              {bags.map((bag) => (
-                <TableRow
-                  className="tbl-row"
-                  hover
-                  key={bag.date} /**should be date here */
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell className="tbl-cell" component="th" scope="row">
-                    {bag.date}
-                  </TableCell>
-                  <TableCell className="tbl-cell" align="right">
-                    {bag.quantity}
-                  </TableCell>
-                  <TableCell className="tbl-cell" align="right">
-                    <TextField
-                      className="rdc-bg"
-                      id="reduce-bag"
-                      label="Quantity"
-                      variant="standard"
-                      type="number "
-                      InputLabelProps={{
-                        style: { color: { DarkTheme } ? "#6f6f6f" : "#6f6f6f" },
-                      }}
-                      onChange={(event) => {
-                        setReduce(event.target.value);
-                      }}
-                    />
-
-                    <Button
-                      variant="contained"
-                      onClick={() => {
-                        reduceBag(bag.id, bag.quantity);
-                      }}
-                    >
-                      Reduce bag
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="error"
-                      onClick={() => {
-                        deleteBag(bag.id);
-                      }}
-                    >
-                      delete
-                    </Button>
-                  </TableCell>
-                  <TableCell align="right"></TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <table className="rtable">
+          <thead className="rhead">
+            <tr className="rheadrow">
+              <th className="rtitle">Date</th>
+              <th className="rtitle">Quantity</th>
+              <th className="rtitle"></th>
+            </tr>
+          </thead>
+          <tbody className="rtablebody">
+            {bags.map((bag) => (
+              <tr className="rtablebody" key={bag.id}>
+                <td className="rtablebody">{bag.quantity}</td>
+                <td className="rtablebody">{bag.quantity}</td>
+                <td className="rtablebody">
+                  <input
+                    className="rdc-bg"
+                    id="reduce-bag"
+                    variant="standard"
+                    type="number "
+                    onChange={(event) => {
+                      setReduce(event.target.value);
+                    }}
+                  />
+                  <button
+                    className=""
+                    onClick={() => {
+                      reduceBag(bag.id, bag.quantity);
+                    }}
+                  >
+                    Reduce bag
+                  </button>
+                  <button
+                    onClick={() => {
+                      deleteBag(bag.id);
+                    }}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </>
   );
