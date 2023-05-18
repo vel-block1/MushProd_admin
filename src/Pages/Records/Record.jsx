@@ -87,7 +87,7 @@ const Record = () => {
           />
           <button onClick={addBag}> Add Bag</button>
         </>
-        <h1>Records</h1>
+        <h1>Records Sample</h1>
 
         <table className="rtable">
           <thead className="rhead">
