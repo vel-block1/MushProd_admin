@@ -5,6 +5,7 @@ import { ThemeContext } from "../ThemeContext";
 import Analytics from "../Components/AnalyticsTemplate/Analytics";
 import Header from "../Components/HeaderTemplate/Header";
 
+import { analytics } from "../Firebase";
 const Content = () => {
   const [username, setusername] = useState();
   const { DarkTheme } = useContext(ThemeContext);
@@ -22,17 +23,24 @@ const Content = () => {
 
   return (
     <div className={`content ${DarkTheme && "dark"}`}>
+      <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+
+      <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
       <div className="row header">
         <h1 className="txt-head "> Temperature</h1>
         <span className="last-monitor">as of May 15, 2023 10 am</span>
         <div className="divider"></div>
-        <h1 className="txt-temp">34°C</h1>
+        <h1 className="txt-temp" id="temp">
+          34°C
+        </h1>
       </div>
       <div className="row header">
         <h1 className="txt-head "> Humidity</h1>
         <span className="last-monitor">as of May 15, 2023 10 am</span>
         <div className="divider"></div>
-        <h1 className="txt-humid">43%</h1>
+        <h1 className="txt-humid" id="humid">
+          43%
+        </h1>
       </div>
       <span className="section-title">Brief Overview</span>
       <div className="row square">

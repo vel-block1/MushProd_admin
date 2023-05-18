@@ -140,7 +140,7 @@ const Record = () => {
                 <TableRow
                   className="tbl-row"
                   hover
-                  key={bag.quantity} /**should be date here */
+                  key={bag.date} /**should be date here */
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell className="tbl-cell" component="th" scope="row">
