@@ -28,13 +28,7 @@
 
 .content .row.header {
   height: 15rem;
-}
-
-.content .row.header:nth-child(1) {
-  grid-column: span 2;
-}
-
-.content .row.header:nth-child(2) {
+  width: 100%;
   grid-column: span 2;
 }
 
@@ -171,9 +165,16 @@
 .content.dark .row.side-rect section .row.header .txt-head {
   color: #ffffff;
 }
-/* @keyframes reveal {
-  to {
-    translate: 0;
-    height: var(--h);
-  }
-} */
+
+.txt-temp,
+.txt-humid {
+  display: flex;
+}
+.txt-temp .unit {
+  padding-top: 15px;
+  font-size: 3rem;
+}
+.txt-humid .unit {
+  padding-top: 15px;
+  font-size: 3rem;
+}
