@@ -13,10 +13,14 @@
   justify-content: center;
   align-items: center;
   background: #c3c6c9;
+  background: #c3c6c9;
   padding: 10px;
   border-radius: 10px;
   transition: 0.2s ease;
   overflow: hidden;
+}
+.content.dark .row {
+  background: #232a31;
 }
 .content.dark .row {
   background: #232a31;
@@ -40,6 +44,7 @@
 
 .content .row.header .txt-head {
   color: #111418;
+  color: #111418;
   font-size: 2.5rem;
   font-family: "Inter", sans-serif;
   font-family: "Lato", sans-serif;
@@ -56,11 +61,15 @@
 }
 .content .row.header .txt-temp {
   font-size: 5rem;
+  color: #010f78;
 }
-
+.content.dark .row.header .txt-temp {
+  color: #465cff;
+}
 .content .row .divider {
   height: 1px;
   width: 35%;
+  background-color: #111418;
   background-color: #111418;
   margin: 2px 0;
 }
@@ -73,6 +82,7 @@
   background-color: rgba(255, 255, 255, 0.24);
   border-radius: 50px;
   gap: 15px;
+  color: #ffffff;
   color: #ffffff;
 }
 
@@ -97,12 +107,21 @@
 .content.dark .row.square::after {
   background-color: var(--dm-bg);
   color: #111418;
+  color: #111418;
 }
 
 .content .row.side-rect {
   height: 150px;
   height: 100%;
+  height: 100%;
   grid-column: span 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.content.dark .row.side-rect {
+  color: #111418;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -114,13 +133,17 @@
 .content .row.side-rect section {
   display: flex;
   justify-content: center;
+  justify-content: center;
   width: 100%;
+  --dm-stroke-clr: #111418;
   --dm-stroke-clr: #111418;
 }
 .content.dark .row.side-rect section {
   --dm-stroke-clr: #ffffff;
+  --dm-stroke-clr: #ffffff;
 }
 
+.content .row.side-rect section .yield-details {
 .content .row.side-rect section .yield-details {
   display: flex;
   flex-direction: column;
@@ -130,18 +153,28 @@
 }
 
 .content .row.side-rect section .yield-details .yield-title {
+
+.content .row.side-rect section .yield-details .yield-title {
   font-size: 20px;
+  color: #111418;
+  /* overflow: hidden; */
+  /* translate: 0 3px;
   color: #111418;
   /* overflow: hidden; */
   /* translate: 0 3px;
   animation: reveal 0.6s ease-out 1s forwards;
   --h: 25px; */
+  --h: 25px; */
 }
 
 .content .row.side-rect section .row.header .yield-txt {
+.content .row.side-rect section .row.header .yield-txt {
   font-size: 14px;
   color: #ffffff;
+  color: #ffffff;
   text-align: center;
+  /* overflow: hidden; */
+  /* translate: 0 5px;
   /* overflow: hidden; */
   /* translate: 0 5px;
   animation: reveal 0.6s ease-out 1s forwards;

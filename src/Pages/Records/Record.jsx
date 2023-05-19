@@ -2,6 +2,7 @@ import "./Record.css";
 import { useState, useContext, useEffect } from "react";
 import { ThemeContext } from "../../ThemeContext";
 import Header from "../../Components/HeaderTemplate/Header";
+
 import { db } from "../../Firebase";
 import {
   collection,
@@ -18,6 +19,7 @@ const Record = () => {
   //add
   const [newDate, setNewDate] = useState("");
   const [newBags, setNewBag] = useState(0);
+
   const addBag = async () => {
     await addDoc(usersCollectionRef, {
       date: newDate,
@@ -35,12 +37,16 @@ const Record = () => {
   const usersCollectionRef = collection(db, "bags");
 
   //update
-  const updateBag = async (id, quantity) => {
+  const [reduce, setReduce] = useState(0);
+  const reduceBag = async (id, quantity) => {
     const bagDoc = doc(db, "bags", id);
-    const newBag = { quantity: quantity + 1 };
+    const newBag = { quantity: quantity - reduce };
     await updateDoc(bagDoc, newBag);
 
+    setReduce(0);
+
     refreshBags();
+    document.getElementById("reduce-bag").value = "";
   };
 
   //delete
@@ -59,49 +65,75 @@ const Record = () => {
   }, []);
 
   return (
-    <div className={`record ${DarkTheme && "dark"}`}>
-      <Header />
-      <input
-        id="date-input"
-        placeholder="Date..."
-        type="date"
-        onChange={(event) => {
-          setNewDate(event.target.value);
-        }}
-      />
-      <input
-        id="quantity-input"
-        placeholder="Quantity"
-        type="number "
-        onChange={(event) => {
-          setNewBag(event.target.value);
-        }}
-      />
-      <button onClick={addBag}> Add bag</button>
-      <h1>Records</h1>
-      {bags.map((bag) => {
-        return (
-          <div>
-            {/* <h1>Date: {formattedDate}</h1> */}
-            <h1>Quantity: {bag.quantity}</h1>
-            <button
-              onClick={() => {
-                updateBag(bag.id, bag.quantity);
-              }}
-            >
-              add bag
-            </button>
-            <button
-              onClick={() => {
-                deleteBag(bag.id);
-              }}
-            >
-              delete
-            </button>
-          </div>
-        );
-      })}
-    </div>
+    <>
+      <div className={`record ${DarkTheme && "dark"}`}>
+        <Header />
+        <>
+          <input
+            id="date-input"
+            placeholder="Date..."
+            type="date"
+            onChange={(event) => {
+              setNewDate(event.target.value);
+            }}
+          />
+          <input
+            id="quantity-input"
+            placeholder="Quantity"
+            type="number "
+            onChange={(event) => {
+              setNewBag(event.target.value);
+            }}
+          />
+          <button onClick={addBag}> Add Bag</button>
+        </>
+        <h1>Records </h1>
+
+        <table className="rtable">
+          <thead className="rhead">
+            <tr className="rheadrow">
+              <th className="rtitle">Date</th>
+              <th className="rtitle">Quantity</th>
+              <th className="rtitle"></th>
+            </tr>
+          </thead>
+          <tbody className="rtablebody">
+            {bags.map((bag) => (
+              <tr className="rtablebody" key={bag.id}>
+                <td className="rtablebody">{bag.quantity}</td>
+                <td className="rtablebody">{bag.quantity}</td>
+                <td className="rtablebody">
+                  <input
+                    className="rdc-bg"
+                    id="reduce-bag"
+                    variant="standard"
+                    type="number "
+                    onChange={(event) => {
+                      setReduce(event.target.value);
+                    }}
+                  />
+                  <button
+                    className=""
+                    onClick={() => {
+                      reduceBag(bag.id, bag.quantity);
+                    }}
+                  >
+                    Reduce bag
+                  </button>
+                  <button
+                    onClick={() => {
+                      deleteBag(bag.id);
+                    }}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 };
 

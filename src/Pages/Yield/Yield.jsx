@@ -8,7 +8,6 @@ const Yield = () => {
   return (
     <>
       <div className={`yield ${DarkTheme && "dark"}`}>
-        {" "}
         <Header />
         <div className="yield-cont">
           <h1>Yield Analysis</h1>

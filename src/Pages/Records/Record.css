@@ -3,16 +3,66 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  background-color: #e4e4e4;
+  background-color: #e2e2e2;
   min-height: 100vh;
-  --dm-bg: #111418;
+  --dm-bg: #111;
+  --lm-c: #e2e2e2;
 }
+
 header {
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
 }
+.record .addBags {
+  display: flex;
+
+  padding: 0rem 2rem;
+}
+h1 {
+  text-align: center;
+  padding-bottom: 1rem;
+}
 .record.dark {
   background-color: var(--dm-bg);
   color: white;
+}
+.record .table-cont {
+  padding: 0rem 4rem;
+  background-color: var(--lm-c);
+}
+.record.dark .table-cont {
+  padding: 0rem 4rem;
+  background-color: var(--dm-bg);
+}
+.tbl-head .tbl-txt {
+  text-align: center;
+}
+.tbl-title .tbl-txt {
+  color: var(--dm-bg);
+  font-size: 2em;
+}
+.tbl-row .tbl-cell {
+  color: var(--dm-bg);
+  font-size: 1.5em;
+  text-align: center;
+}
+.tbl-cell .rdc-bg {
+  color: var(--dm-bg);
+}
+.record.dark .tbl-cell .rdc-bg {
+  color: #ffff;
+}
+.record.dark .tbl-title .tbl-txt {
+  color: var(--lm-c);
+  font-size: 2em;
+}
+.record.dark .tbl-row .tbl-cell {
+  color: var(--lm-c);
+}
+.record.dark .tbl-cell .rdc-bg {
+  color: var(--lm-c);
+}
+.tbl-cell Button {
+  margin: 0rem 1rem;
 }

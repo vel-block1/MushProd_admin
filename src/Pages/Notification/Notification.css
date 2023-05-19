@@ -12,3 +12,8 @@
   background-color: var(--dm-bg);
   color: white;
 }
+header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}

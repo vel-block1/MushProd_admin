@@ -1,5 +1,5 @@
 import "./Login.css";
-import infinity from "../assets/infinity.png";
+import betapeak from "../assets/BetaPeak.png";
 import { useState } from "react";
 
 import { auth } from "../Firebase";
@@ -44,17 +44,8 @@ const Login = () => {
 
   return (
     <div className="login-page">
-      <header>
-        <span>
-          from <i>Beta Peak</i>
-        </span>
-      </header>
-      <img className="logo" src={infinity} alt="Logo" />
-      <h2 className="title">
-        MushProd
-        <br />
-        Dashboard
-      </h2>
+      <img className="logo" src={betapeak} alt="Logo" />
+      <h2 className="title">MushProd Dashboard</h2>
 
       <form onSubmit={submit}>
         {NewUser && (
@@ -65,7 +56,7 @@ const Login = () => {
               id="username"
               required
             />
-            <label htmlFor="username">username</label>
+            <label htmlFor="username">Username</label>
           </div>
         )}
 
@@ -76,7 +67,7 @@ const Login = () => {
             id="email"
             required
           />
-          <label htmlFor="email">email</label>
+          <label htmlFor="email">Email</label>
         </div>
 
         <div className="password">
@@ -86,7 +77,7 @@ const Login = () => {
             id="password"
             required
           />
-          <label htmlFor="password">password</label>
+          <label htmlFor="password">Password</label>
         </div>
         {error && <span className="error">Process Failed</span>}
         {error && <span className="error">{Errormsg}</span>}
