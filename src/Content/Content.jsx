@@ -72,41 +72,6 @@ const Content = () => {
 
     getCurrentData();
   });
-  // useEffect(() => {
-  //   const getCurrentData = async () => {
-  //     // const getDateOnTemp = firebase.getDatabase().ref(formattedDate);
-  //     const getDateOnTemp = ref(realtimeDB, "2023-05-18");
-
-  //     // const query = getDateOnTemp.orderByKey().limitToLast(1);
-
-  //     // console.log(query);
-
-  //     onValue(getDateOnTemp, (snapshot) => {
-  //       // if (snapshot.exists()) {
-  //       snapshot.forEach((childSnapshot) => {
-  //         const childKey = childSnapshot.key;
-  //         const childData = childSnapshot.val();
-  //         const childHumidity = childData.Humd;
-  //         const childTemperature = childData.Temp;
-
-  //         console.log("Child Node:", childKey);
-  //         console.log("Humidity:", childHumidity);
-  //         console.log("Temperature:", childTemperature);
-
-  //         setTemperature(childTemperature);
-  //         setHumidity(childHumidity);
-  //       });
-  //       // } else {
-  //       //   console.log("No child nodes found.");
-  //       // }
-  //       // const data = snapshot.val();
-  //       // setTemperature(data.Temp);
-  //       // setHumidity(data.Humd);
-  //     });
-  //   };
-
-  //   getCurrentData();
-  // });
 
   return (
     <div className={`content ${DarkTheme && "dark"}`}>
