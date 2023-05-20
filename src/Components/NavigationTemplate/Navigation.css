@@ -6,9 +6,12 @@
   width: 20%;
   min-height: 100vh;
   color: white;
-  background: #38434f;
+  background: #1076e2;
   padding: 5px, 10px;
   overflow: hidden;
+}
+.navigation.dark {
+  background: #05356b;
 }
 .navigation a {
   text-decoration: none;
