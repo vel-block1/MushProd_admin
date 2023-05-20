@@ -1,5 +1,5 @@
-import { useContext, useState, useEffect } from "react";
-
+import { useState, useEffect } from "react";
+import "firebase/database";
 import { getDatabase, ref, onValue } from "firebase/database";
 
 const GetTemp = (date) => {
@@ -7,10 +7,10 @@ const GetTemp = (date) => {
   const [humidity, setHumidity] = useState("");
 
   const realtimeDB = getDatabase();
-
+  console.log("i am temp");
   useEffect(() => {
     const getCurrentData = async () => {
-      const getDateOnTemp = ref(realtimeDB, `${date}`);
+      const getDateOnTemp = ref(realtimeDB, date);
 
       onValue(getDateOnTemp, (snapshot) => {
         if (snapshot.exists()) {
