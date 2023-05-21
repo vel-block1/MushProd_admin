@@ -3,9 +3,9 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  background-color: #e4e4e4;
+  background-color: #ffffff;
   min-height: 100vh;
-  --dm-bg: #111418;
+  --dm-bg: #00142e;
 }
 
 .main.dark {

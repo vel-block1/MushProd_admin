@@ -1,8 +1,9 @@
+import * as React from "react";
 import "./Record.css";
 import { useState, useContext, useEffect, useRef } from "react";
 import { ThemeContext } from "../../ThemeContext";
 import Header from "../../Components/HeaderTemplate/Header";
-
+import Input from "@mui/material/Input";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -12,6 +13,11 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import dayjs, { Dayjs } from "dayjs";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import { db } from "../../Firebase";
 import {
@@ -35,6 +41,7 @@ const Record = () => {
       date: newDate,
       quantity: Number(newBags),
     });
+    console.log(newDate);
     setNewDate("");
     setNewBag(0);
     refreshBags();
@@ -74,6 +81,7 @@ const Record = () => {
   useEffect(() => {
     refreshBags();
   }, []);
+
   return (
     <>
       <div className={`record ${DarkTheme && "dark"}`}>
@@ -164,7 +172,30 @@ const Record = () => {
             </TableContainer>
           </div>
           <div className="inputCont">
-            <input
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer components={["DatePicker"]}>
+                <DatePicker
+                  type="date"
+                  id="date-input"
+                  label="Date"
+                  onChange={(event) => {
+                    setNewDate(event.target.value);
+                  }}
+                />
+              </DemoContainer>
+            </LocalizationProvider>
+            <TextField
+              id="quantity-input"
+              label="Number"
+              type="number"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              onChange={(event) => {
+                setNewBag(event.target.value);
+              }}
+            />
+            {/* <input
               id="date-input"
               placeholder="Date..."
               type="date"
@@ -179,7 +210,7 @@ const Record = () => {
               onChange={(event) => {
                 setNewBag(event.target.value);
               }}
-            />
+            /> */}
             <button onClick={addBag}> Add Bag</button>
           </div>
         </div>
