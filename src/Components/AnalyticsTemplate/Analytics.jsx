@@ -1,4 +1,5 @@
 import "./Analytics.css";
+import { getDatabase, ref, onValue, get } from "firebase/database";
 import { useEffect, useState } from "react";
 
 import {
@@ -14,6 +15,206 @@ import {
 } from "recharts";
 
 const Analytics = ({ chart_i, chart_ii }) => {
+  const realtimeDB = getDatabase();
+  const [date, setDate] = useState("");
+
+  useEffect(() => {
+    const getCurrentDate = async () => {
+      const currentDate = new Date();
+      const year = currentDate.getFullYear();
+      const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
+      const day = currentDate.getDate().toString().padStart(2, "0");
+      const formattedDate = `${year}-${month}-${day}`;
+      setDate(formattedDate);
+    };
+    getCurrentDate();
+  }, []);
+
+  const [data02, setData02] = useState([
+    {
+      time: `00:00`,
+      humidity: 0,
+      temperature: 0,
+    },
+    {
+      time: `01:00`,
+      humidity: 0,
+      temperature: 0,
+    },
+    {
+      time: `02:00`,
+      humidity: 0,
+      temperature: 0,
+    },
+    {
+      time: `03:00`,
+      humidity: 0,
+      temperature: 0,
+    },
+    {
+      time: `04:00`,
+      humidity: 0,
+      temperature: 0,
+    },
+    {
+      time: `05:00`,
+      humidity: 0,
+      temperature: 0,
+    },
+    {
+      time: `06:00`,
+      humidity: 0,
+      temperature: 0,
+    },
+    {
+      time: `07:00`,
+
+      humidity: 0,
+      temperature: 0,
+    },
+    {
+      time: `08:00`,
+      humidity: 0,
+      temperature: 0,
+    },
+    {
+      time: `09:00`,
+      humidity: 0,
+      temperature: 0,
+    },
+    {
+      time: `10:00`,
+      humidity: 0,
+      temperature: 0,
+    },
+    {
+      time: `11:00`,
+      humidity: 0,
+      temperature: 0,
+    },
+    {
+      time: `12:00`,
+      humidity: 0,
+      temperature: 0,
+    },
+    {
+      time: `13:00`,
+      humidity: 0,
+      temperature: 0,
+    },
+    {
+      time: `14:00`,
+      humidity: 0,
+      temperature: 0,
+    },
+    {
+      time: `15:00`,
+      humidity: 0,
+      temperature: 0,
+    },
+    {
+      time: `16:00`,
+      humidity: 0,
+      temperature: 0,
+    },
+    {
+      time: `17:00`,
+      humidity: 0,
+      temperature: 0,
+    },
+    {
+      time: `18:00`,
+      humidity: 0,
+      temperature: 0,
+    },
+    {
+      time: `19:00`,
+
+      humidity: 0,
+      temperature: 0,
+    },
+    {
+      time: `20:00`,
+      humidity: 0,
+      temperature: 0,
+    },
+    {
+      time: `21:00`,
+      humidity: 0,
+      temperature: 0,
+    },
+    {
+      time: `22:00`,
+      humidity: 0,
+      temperature: 0,
+    },
+    {
+      time: `23:00`,
+      humidity: 0,
+      temperature: 0,
+    },
+    {
+      time: `24:00`,
+      humidity: 0,
+      temperature: 0,
+    },
+  ]);
+
+  useEffect(() => {
+    const fetchTemperatureAndHumidity = async (date, setData02) => {
+      const realtimeDB = getDatabase();
+      const getDateOnTemp = ref(realtimeDB, "2023-05-22");
+      return new Promise((resolve, reject) => {
+        onValue(
+          getDateOnTemp,
+          (snapshot) => {
+            if (snapshot.exists()) {
+              const data = snapshot.val();
+              const measurements = Object.values(data);
+              const temperatureData = [];
+              const humidityData = [];
+
+              measurements.forEach((measurement, index) => {
+                if (index % 60 == 0) {
+                  temperatureData.push(measurement.Temp);
+                  humidityData.push(measurement.Humd);
+                }
+              });
+              console.log(measurements);
+
+              // Update the state with fetched values
+              setData02((prevState) =>
+                prevState.map((item, index) => ({
+                  ...item,
+                  humidity: humidityData[index] || item.humidity,
+                  temperature: temperatureData[index] || item.temperature,
+                }))
+              );
+
+              resolve({ temperature: temperatureData, humidity: humidityData });
+            } else {
+              console.log("No child nodes found.");
+              reject(new Error("No child nodes found."));
+            }
+          },
+          {
+            onlyLast: true, // Add this option to limit the callback to the last snapshot
+          }
+        );
+      });
+    };
+    fetchTemperatureAndHumidity(date, setData02);
+    return () => {
+      fetchTemperatureAndHumidity;
+      console.log(date);
+    };
+  }, [date]);
+  //adding value to chart
+  const formattedData = Object.keys(data02).map((key) => ({
+    time: key + ":00",
+    temperature: data02[key].temperature,
+    humidity: data02[key].humidity,
+  }));
   const data = [
     {
       name: "Jan",
@@ -39,135 +240,6 @@ const Analytics = ({ chart_i, chart_ii }) => {
       name: "May",
       Removed: 2780,
       Added: 3908,
-    },
-  ];
-  const data02 = [
-    {
-      time: `00:00`,
-      humidity: 0,
-      temperature: 0,
-    },
-    {
-      time: `01:00`,
-      humidity: 80,
-      temperature: 29,
-    },
-    {
-      time: `02:00`,
-      humidity: 81,
-      temperature: 29.3,
-    },
-    {
-      time: `03:00`,
-      humidity: 78,
-      temperature: 30,
-    },
-    {
-      time: `04:00`,
-      humidity: 80,
-      temperature: 37,
-    },
-    {
-      time: `05:00`,
-      humidity: 57,
-      temperature: 37,
-    },
-    {
-      time: `06:00`,
-      humidity: 78,
-      temperature: 30,
-    },
-    {
-      time: `07:00`,
-
-      humidity: 80,
-      temperature: 31,
-    },
-    {
-      time: `08:00`,
-      humidity: 78,
-      temperature: 30,
-    },
-    {
-      time: `09:00`,
-      humidity: 90,
-      temperature: 65,
-    },
-    {
-      time: `10:00`,
-      humidity: 85,
-      temperature: 89,
-    },
-    {
-      time: `11:00`,
-      humidity: 90,
-      temperature: 31,
-    },
-    {
-      time: `12:00`,
-      humidity: 65,
-      temperature: 35,
-    },
-    {
-      time: `13:00`,
-      humidity: 80,
-      temperature: 29,
-    },
-    {
-      time: `14:00`,
-      humidity: 81,
-      temperature: 29.3,
-    },
-    {
-      time: `15:00`,
-      humidity: 78,
-      temperature: 30,
-    },
-    {
-      time: `16:00`,
-      humidity: 80,
-      temperature: 37,
-    },
-    {
-      time: `17:00`,
-      humidity: 57,
-      temperature: 37,
-    },
-    {
-      time: `18:00`,
-      humidity: 78,
-      temperature: 30,
-    },
-    {
-      time: `19:00`,
-
-      humidity: 80,
-      temperature: 31,
-    },
-    {
-      time: `20:00`,
-      humidity: 78,
-      temperature: 30,
-    },
-    {
-      time: `21:00`,
-      humidity: 90,
-      temperature: 65,
-    },
-    {
-      time: `22:00`,
-      humidity: 85,
-      temperature: 89,
-    },
-    {
-      time: `23:00`,
-      humidity: 90,
-      temperature: 31,
-    },
-    {
-      time: `24:00`,
-      humidity: 65,
-      temperature: 35,
     },
   ];
 
@@ -205,8 +277,8 @@ const Analytics = ({ chart_i, chart_ii }) => {
             height={modifiedHeightForBar}
             data={data}
           >
-            <CartesianGrid strokeDasharray="100 10" />
-            <XAxis dataKey="name" />
+            <CartesianGrid stroke="#68adb1" strokeDasharray="100 10" />
+            <XAxis stroke="#68adb1" dataKey="name" />
             <Tooltip />
             <Legend />
             <Bar dataKey="Removed" fill="#e12121" />
@@ -214,16 +286,15 @@ const Analytics = ({ chart_i, chart_ii }) => {
           </BarChart>
         </>
       )}
-
       {chart_ii && (
         <>
-          {/* <span>Temperature and Humidity Trends over Time </span> */}
+          <span>Temperature and Humidity Trends over Time </span>
 
           <LineChart
             className="respo"
             width={modifiedWidth}
             height={modifiedHeight}
-            data={data02}
+            data={formattedData}
             margin={{ right: 10, top: 10 }}
           >
             <CartesianGrid stroke="#68adb1" strokeDasharray="3 3" />
@@ -246,7 +317,7 @@ const Analytics = ({ chart_i, chart_ii }) => {
             <Legend />
             <Line
               type="monotone"
-              dataKey={"temperature"}
+              dataKey="temperature"
               stroke="#3333f8"
               strokeWidth={3}
             />
@@ -259,6 +330,14 @@ const Analytics = ({ chart_i, chart_ii }) => {
           </LineChart>
         </>
       )}
+      {/* <ul>
+        {data02.map((item) => (
+          <li key={item.time}>
+            Time: {item.time}, Temperature: {item.temperature} Humidity:
+            {item.humidity}
+          </li>
+        ))}
+      </ul> */}
     </div>
   );
 };

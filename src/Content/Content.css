@@ -40,17 +40,27 @@
 .content.dark .row.cont {
   background: #1cdb6500;
 }
+.content .row.cont .txt-head-dash {
+  padding-bottom: 0px;
+}
 .content .row.headerTemp {
   height: 100%;
   width: 100%;
   grid-column: span 4;
+  background-color: #ffffff88;
+}
+.content.dark .row.headerTemp {
+  background-color: #232a3153;
 }
 .content .row.squareBags {
   height: 100%;
   width: 100%;
   grid-column: span 2;
+  background-color: #ffffff88;
 }
-
+.content.dark .row.squareBags {
+  background-color: #232a3153;
+}
 .content .row.cont .txt-head {
   color: #111418;
   font-size: 1.5vw;
@@ -60,20 +70,20 @@
   margin-bottom: 0px;
 }
 .content .row.cont .txt-humid {
-  color: #046768;
+  color: #001e45;
   font-size: 9vh;
 }
 .content .row.cont .txt-temp {
   font-size: 9vh;
-  color: #010f78;
+  color: #001e45;
 }
 .content .row.cont .txt-bags {
   font-size: 9vh;
-  color: #047024;
+  color: #001e45;
 }
 .content .row.cont .txt-yield {
   font-size: 9vh;
-  color: #113596;
+  color: #001e45;
 }
 .content .row .divider {
   height: 1px;
@@ -118,7 +128,10 @@
 .content .row.cont .txt-head.temp {
   color: #0be4e8;
 }
-.content.dark .row.cont .txt-head {
+.content.dark .row.cont .txt-yield {
+  color: #0be4e8;
+}
+.content.dark .row.cont .txt-bags {
   color: #0be4e8;
 }
 .content .row.cont .last-monitor {

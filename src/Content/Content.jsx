@@ -3,11 +3,17 @@ import "./Content.css";
 import { ThemeContext } from "../ThemeContext";
 import Linechart from "../Components/LineChart/Linechart";
 import Analytics from "../Components/AnalyticsTemplate/Analytics";
-import { getDatabase, ref, onValue } from "firebase/database";
+import { getDatabase, ref, onValue, get } from "firebase/database";
+
+import { css } from "@emotion/react";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
+
+import { StyledEngineProvider } from "@mui/material/styles";
 
 const Content = () => {
   const { DarkTheme } = useContext(ThemeContext);
-
   const [date, setDate] = useState("");
   const [temp, setTemp] = useState("");
   const [hum, setHum] = useState("");
@@ -46,25 +52,19 @@ const Content = () => {
 
   useEffect(() => {
     const getCurrentDate = async () => {
-      console.log("sad");
       const currentDate = new Date();
       const year = currentDate.getFullYear();
       const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
       const day = currentDate.getDate().toString().padStart(2, "0");
       const formattedDate = `${year}-${month}-${day}`;
       setDate(formattedDate);
-      console.log("sads");
     };
     getCurrentDate();
   }, []);
 
   useEffect(() => {
-    console.log(date);
     const getCurrentTemp = async () => {
-      const date1 = "2023-05-21";
-      const { temperature, humidity } = await fetchTemperatureAndHumidity(
-        date1
-      );
+      const { temperature, humidity } = await fetchTemperatureAndHumidity(date);
       setTemp(temperature);
       setHum(humidity);
     };
@@ -73,6 +73,50 @@ const Content = () => {
       getCurrentTemp();
     }
   }, [date]);
+
+  //Get averages
+  const [averages, setAverages] = useState([]);
+
+  useEffect(() => {
+    const realtimeDB = getDatabase();
+
+    const fetchData = async () => {
+      try {
+        const snapshot = await get(ref(realtimeDB, "/"));
+        const data = snapshot.val();
+
+        const averageData = [];
+
+        for (const date in data) {
+          let totalTemp = 0;
+          let totalHumidity = 0;
+          let count = 0;
+
+          for (const measurement in data[date]) {
+            const { Temp, Humd } = data[date][measurement];
+            totalTemp += Temp;
+            totalHumidity += Humd;
+            count++;
+          }
+
+          const averageTemp = totalTemp / count;
+          const averageHumidity = totalHumidity / count;
+
+          averageData.push({
+            date,
+            averageTemp: averageTemp.toFixed(2),
+            averageHumidity: averageHumidity.toFixed(2),
+          });
+        }
+
+        setAverages(averageData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div className={`content ${DarkTheme && "dark"}`}>
@@ -121,6 +165,30 @@ const Content = () => {
       <div className="row squareBags">
         <Analytics chart_i />
       </div>
+      <div>
+        {averages.map((average) => (
+          <div key={average.date}>
+            <p>Date: {average.date}</p>
+            <p>Average Temperature: {average.averageTemp}</p>
+            <p>Average Humidity: {average.averageHumidity}</p>
+            <hr />
+          </div>
+        ))}
+      </div>
+
+      {/* <div className="row squareBags ">
+        <StyledEngineProvider injectFirst css={containerStyle}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DateCalendar
+              readOnly
+              css={css`
+                width: 100%;
+                max-width: 400px;
+              `}
+            />
+          </LocalizationProvider>
+        </StyledEngineProvider>
+      </div> */}
     </div>
   );
 };
