@@ -14,7 +14,7 @@ import {
   Line,
 } from "recharts";
 
-const Analytics = ({ chart_i, chart_ii }) => {
+const Analytics = ({ chart_i, chart_ii, chart_iii }) => {
   const realtimeDB = getDatabase();
   const [date, setDate] = useState("");
 
@@ -30,6 +30,7 @@ const Analytics = ({ chart_i, chart_ii }) => {
     getCurrentDate();
   }, []);
 
+  // getting temp and humid over time
   const [data02, setData02] = useState([
     {
       time: `00:00`,
@@ -159,11 +160,10 @@ const Analytics = ({ chart_i, chart_ii }) => {
       temperature: 0,
     },
   ]);
-
   useEffect(() => {
     const fetchTemperatureAndHumidity = async (date, setData02) => {
       const realtimeDB = getDatabase();
-      const getDateOnTemp = ref(realtimeDB, "2023-05-22");
+      const getDateOnTemp = ref(realtimeDB, date);
       return new Promise((resolve, reject) => {
         onValue(
           getDateOnTemp,
@@ -180,7 +180,6 @@ const Analytics = ({ chart_i, chart_ii }) => {
                   humidityData.push(measurement.Humd);
                 }
               });
-              console.log(measurements);
 
               // Update the state with fetched values
               setData02((prevState) =>
@@ -209,12 +208,85 @@ const Analytics = ({ chart_i, chart_ii }) => {
       console.log(date);
     };
   }, [date]);
-  //adding value to chart
+  //adding temp and humid value to chart
   const formattedData = Object.keys(data02).map((key) => ({
     time: key + ":00",
     temperature: data02[key].temperature,
     humidity: data02[key].humidity,
   }));
+
+  // getting average
+  const [averages, setAverages] = useState([]);
+  useEffect(() => {
+    const realtimeDB = getDatabase();
+
+    const fetchData = async () => {
+      try {
+        const snapshot = await get(ref(realtimeDB, "/"));
+        const data = snapshot.val();
+
+        const averageData = [];
+
+        for (const date in data) {
+          let totalTemp = 0;
+          let totalHumidity = 0;
+          let count = 0;
+
+          for (const measurement in data[date]) {
+            const { Temp, Humd } = data[date][measurement];
+            totalTemp += Temp;
+            totalHumidity += Humd;
+            count++;
+          }
+
+          const averageTemp = totalTemp / count;
+          const averageHumidity = totalHumidity / count;
+
+          averageData.push({
+            date,
+            averageTemp: averageTemp.toFixed(2),
+            averageHumidity: averageHumidity.toFixed(2),
+          });
+        }
+
+        setAverages(averageData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  //adding average value to chart
+  const formattedDataAve = averages.map(
+    ({ date, averageTemp, averageHumidity }) => ({
+      key: date, // Set the key to the value of the date
+      date,
+      averageTemp,
+      averageHumidity,
+    })
+  );
+
+  //setting sizes for the charts
+  const [chartWidth, setChartWidth] = useState(window.innerWidth * 1);
+  const [chartHeight, setChartHeight] = useState(window.innerHeight * 1);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setChartWidth(window.innerWidth);
+      setChartHeight(window.innerHeight);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+  const modifiedWidth_Temp = chartWidth * 0.7;
+  const modifiedHeight_Temp = chartHeight * 0.4;
+  const modifiedWidthForBar_Temp = chartWidth * 0.3;
+  const modifiedHeightForBar_Temp = chartWidth * 0.2;
+
   const data = [
     {
       name: "Jan",
@@ -242,26 +314,6 @@ const Analytics = ({ chart_i, chart_ii }) => {
       Added: 3908,
     },
   ];
-
-  const [chartWidth, setChartWidth] = useState(window.innerWidth * 1);
-  const [chartHeight, setChartHeight] = useState(window.innerHeight * 1);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setChartWidth(window.innerWidth);
-      setChartHeight(window.innerHeight);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-  const modifiedWidth = chartWidth * 0.7;
-  const modifiedHeight = chartHeight * 0.4;
-  const modifiedWidthForBar = chartWidth * 0.3;
-  const modifiedHeightForBar = chartWidth * 0.2;
-
   return (
     <div className="analytics">
       {chart_i && (
@@ -273,8 +325,8 @@ const Analytics = ({ chart_i, chart_ii }) => {
           </header>
           <BarChart
             className="chart"
-            width={modifiedWidthForBar}
-            height={modifiedHeightForBar}
+            width={modifiedWidthForBar_Temp}
+            height={modifiedHeightForBar_Temp}
             data={data}
           >
             <CartesianGrid stroke="#68adb1" strokeDasharray="100 10" />
@@ -292,8 +344,8 @@ const Analytics = ({ chart_i, chart_ii }) => {
 
           <LineChart
             className="respo"
-            width={modifiedWidth}
-            height={modifiedHeight}
+            width={modifiedWidth_Temp}
+            height={modifiedHeight_Temp}
             data={formattedData}
             margin={{ right: 10, top: 10 }}
           >
@@ -314,14 +366,16 @@ const Analytics = ({ chart_i, chart_ii }) => {
               tickLine={{ strokeWidth: 3 }}
             />
             <Tooltip cursor={{ stroke: "#1076e2", strokeWidth: 2 }} />
-            <Legend />
+            <Legend iconType="circle" />
             <Line
               type="monotone"
               dataKey="temperature"
               stroke="#3333f8"
+              name="Temperature"
               strokeWidth={3}
             />
             <Line
+              name="Humidity"
               type="monotone"
               dataKey="humidity"
               stroke="#014f50"
@@ -330,7 +384,54 @@ const Analytics = ({ chart_i, chart_ii }) => {
           </LineChart>
         </>
       )}
-      {/* <ul>
+      {chart_iii && (
+        <>
+          <span>Average Temperature and Humidity</span>
+
+          <LineChart
+            className="respo"
+            width={modifiedWidthForBar_Temp}
+            height={modifiedHeightForBar_Temp}
+            data={formattedDataAve}
+            margin={{ right: 10, top: 10 }}
+          >
+            <CartesianGrid stroke="#68adb1" strokeDasharray="3 3" />
+            <XAxis
+              stroke="#68adb1"
+              tick={{ fontSize: 12 }}
+              label={{ fontSize: 14 }}
+              axisLine={{ strokeWidth: 3 }}
+              tickLine={{ strokeWidth: 3 }}
+              dataKey="date"
+            />
+            <YAxis
+              domain={["dataMin", 150]}
+              stroke="#68adb1"
+              tick={{ fontSize: 18 }}
+              label={{ fontSize: 10 }}
+              axisLine={{ strokeWidth: 3 }}
+              tickLine={{ strokeWidth: 3 }}
+            />
+            <Tooltip cursor={{ stroke: "#1076e2", strokeWidth: 2 }} />
+            <Legend iconType="circle" />
+            <Line
+              type="monotone"
+              dataKey="averageTemp"
+              stroke="#3333f8"
+              name="Average Temperature"
+              strokeWidth={3}
+            />
+            <Line
+              type="monotone"
+              dataKey="averageHumidity"
+              stroke="#014f50"
+              strokeWidth={3}
+              name="Average Humidity"
+            />
+          </LineChart>
+        </>
+      )}
+      {/* <ul>  
         {data02.map((item) => (
           <li key={item.time}>
             Time: {item.time}, Temperature: {item.temperature} Humidity:
@@ -338,6 +439,14 @@ const Analytics = ({ chart_i, chart_ii }) => {
           </li>
         ))}
       </ul> */}
+      {/* {averages.map((average) => (
+        <div key={average.date}>
+          <p>Date: {average.date}</p>
+          <p>Average Temperature: {average.averageTemp}</p>
+          <p>Average Humidity: {average.averageHumidity}</p>
+          <hr />
+        </div>
+      ))} */}
     </div>
   );
 };

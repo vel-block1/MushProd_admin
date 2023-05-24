@@ -4,20 +4,35 @@ import { ThemeContext } from "../ThemeContext";
 import Linechart from "../Components/LineChart/Linechart";
 import Analytics from "../Components/AnalyticsTemplate/Analytics";
 import { getDatabase, ref, onValue, get } from "firebase/database";
-
-import { css } from "@emotion/react";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
-
-import { StyledEngineProvider } from "@mui/material/styles";
-
+import { collection } from "firebase/firestore";
 const Content = () => {
   const { DarkTheme } = useContext(ThemeContext);
   const [date, setDate] = useState("");
   const [temp, setTemp] = useState("");
   const [hum, setHum] = useState("");
+  const [bags, setBags] = useState("");
+  // getting all records of bags
 
+  let totalBags = 0;
+  const refreshBags = async () => {
+    try {
+      const querySnapshot = await getDocs(usersCollectionRef);
+      const bagsData = querySnapshot.docs.map((doc) => doc.data());
+
+      const totalBags = bagsData.reduce((sum, bag) => sum + bag.quantity, 0);
+
+      console.log("Total Bags:", totalBags);
+      return totalBags;
+    } catch (error) {
+      console.log(error);
+      return 0;
+    }
+  };
+  useEffect(() => {
+    refreshBags();
+  }, []);
+
+  //getting all tmep and humid data
   const fetchTemperatureAndHumidity = async (date) => {
     const realtimeDB = getDatabase();
     const getDateOnTemp = ref(realtimeDB, date);
@@ -74,50 +89,23 @@ const Content = () => {
     }
   }, [date]);
 
-  //Get averages
-  const [averages, setAverages] = useState([]);
+  let statusTemp = "";
+  if (temp > 10 && temp < 29) {
+    statusTemp = "Normal Temperature";
+  } else if (temp < 29) {
+    statusTemp = "High Temperature";
+  } else if (temp < 10) {
+    statusTemp = "Low Temperature";
+  } else {
+    statusTemp = "Normal Temperature";
+  }
 
-  useEffect(() => {
-    const realtimeDB = getDatabase();
-
-    const fetchData = async () => {
-      try {
-        const snapshot = await get(ref(realtimeDB, "/"));
-        const data = snapshot.val();
-
-        const averageData = [];
-
-        for (const date in data) {
-          let totalTemp = 0;
-          let totalHumidity = 0;
-          let count = 0;
-
-          for (const measurement in data[date]) {
-            const { Temp, Humd } = data[date][measurement];
-            totalTemp += Temp;
-            totalHumidity += Humd;
-            count++;
-          }
-
-          const averageTemp = totalTemp / count;
-          const averageHumidity = totalHumidity / count;
-
-          averageData.push({
-            date,
-            averageTemp: averageTemp.toFixed(2),
-            averageHumidity: averageHumidity.toFixed(2),
-          });
-        }
-
-        setAverages(averageData);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
+  let statusHumid = "";
+  if (temp > 80) {
+    statusHumid = "Normal Humidity";
+  } else {
+    statusHumid = "Low Humidity";
+  }
   return (
     <div className={`content ${DarkTheme && "dark"}`}>
       <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
@@ -126,7 +114,7 @@ const Content = () => {
 
       <div className="row cont">
         <h1 className="txt-head-dash "> Temperature</h1>
-        <h2>Normal</h2>
+        <h2>{statusTemp}</h2>
         <div className="divider"></div>
         <h1 className="txt-temp" id="temp">
           {temp}
@@ -135,7 +123,7 @@ const Content = () => {
       </div>
       <div className="row cont">
         <h1 className="txt-head-dash "> Humidity</h1>
-        <h2>Normal</h2>
+        <h2>{statusHumid}</h2>
         <div className="divider"></div>
         <h1 className="txt-humid" id="humid">
           {hum}
@@ -156,7 +144,7 @@ const Content = () => {
         <h2>as of May 15,2023</h2>
         <div className="divider"></div>
         <h1 className="txt-bags" id="total_bags">
-          1000
+          {totalBags}
         </h1>
       </div>
       <div className="row headerTemp">
@@ -165,15 +153,8 @@ const Content = () => {
       <div className="row squareBags">
         <Analytics chart_i />
       </div>
-      <div>
-        {averages.map((average) => (
-          <div key={average.date}>
-            <p>Date: {average.date}</p>
-            <p>Average Temperature: {average.averageTemp}</p>
-            <p>Average Humidity: {average.averageHumidity}</p>
-            <hr />
-          </div>
-        ))}
+      <div className="row squareBags">
+        <Analytics chart_iii></Analytics>
       </div>
 
       {/* <div className="row squareBags ">
