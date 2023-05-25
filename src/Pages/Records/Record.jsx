@@ -89,88 +89,6 @@ const Record = () => {
 
         <h1>Records </h1>
         <div className="cont">
-          <div className="tableCont">
-            <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell align="center">Date</TableCell>
-                    <TableCell align="center">Quanitity</TableCell>
-                    <TableCell align="center"></TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {bags.map((bag) => (
-                    <TableRow key={bag.id}>
-                      <TableCell
-                        // style={{ width: 2 }}
-                        align="center"
-                        component="th"
-                        scope="row"
-                      >
-                        {bag.quantity}
-                      </TableCell>
-                      <TableCell
-                        // style={{ width: 1 }}
-                        align="center"
-                      >
-                        {bag.quantity}
-                      </TableCell>
-                      <TableCell
-                        sx={{ mx: 10 }}
-                        className="tblCell"
-                        align="left"
-                      >
-                        {" "}
-                        <TextField
-                          style={{ width: 100 }}
-                          sx={{
-                            mx: "auto",
-                            p: 0.5,
-                            m: 0.5,
-                            textAlign: "center",
-                          }}
-                          className="txtField"
-                          id="reduce-bag"
-                          label="Quantity"
-                          type="number"
-                          size="small"
-                          InputLabelProps={{
-                            shrink: true,
-                          }}
-                          inputRef={reduceBagInputRef}
-                          onChange={(event) => {
-                            setReduce(event.target.value);
-                          }}
-                        />
-                        <Button
-                          sx={{ mx: "auto", p: 1, m: 1 }}
-                          className="btn"
-                          variant="contained"
-                          size="small"
-                          onClick={() => {
-                            reduceBag(bag.id, bag.quantity);
-                          }}
-                        >
-                          Remove Bag
-                        </Button>
-                        <Button
-                          color="error"
-                          variant="contained"
-                          className="btn"
-                          onClick={() => {
-                            deleteBag(bag.id);
-                          }}
-                        >
-                          Delete
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </div>
           <div className="inputCont">
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DemoContainer components={["DatePicker"]}>
@@ -213,6 +131,84 @@ const Record = () => {
             /> */}
             <button onClick={addBag}> Add Bag</button>
           </div>
+        </div>
+        <div className="tableCont">
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center">Date</TableCell>
+                  <TableCell align="center">Quanitity</TableCell>
+                  <TableCell align="center"></TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {bags.map((bag) => (
+                  <TableRow key={bag.id}>
+                    <TableCell
+                      // style={{ width: 2 }}
+                      align="center"
+                      component="th"
+                      scope="row"
+                    >
+                      {bag.quantity}
+                    </TableCell>
+                    <TableCell
+                      // style={{ width: 1 }}
+                      align="center"
+                    >
+                      {bag.quantity}
+                    </TableCell>
+                    <TableCell sx={{ mx: 10 }} className="tblCell" align="left">
+                      {" "}
+                      <TextField
+                        style={{ width: 100 }}
+                        sx={{
+                          mx: "auto",
+                          p: 0.5,
+                          m: 0.5,
+                          textAlign: "center",
+                        }}
+                        className="txtField"
+                        id="reduce-bag"
+                        label="Quantity"
+                        type="number"
+                        size="small"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        inputRef={reduceBagInputRef}
+                        onChange={(event) => {
+                          setReduce(event.target.value);
+                        }}
+                      />
+                      <Button
+                        sx={{ mx: "auto", p: 1, m: 1 }}
+                        className="btn"
+                        variant="contained"
+                        size="small"
+                        onClick={() => {
+                          reduceBag(bag.id, bag.quantity);
+                        }}
+                      >
+                        Remove Bag
+                      </Button>
+                      <Button
+                        color="error"
+                        variant="contained"
+                        className="btn"
+                        onClick={() => {
+                          deleteBag(bag.id);
+                        }}
+                      >
+                        Delete
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </div>
       </div>
     </>

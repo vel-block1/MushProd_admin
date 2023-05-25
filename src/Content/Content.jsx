@@ -92,16 +92,14 @@ const Content = () => {
   let statusTemp = "";
   if (temp > 10 && temp < 29) {
     statusTemp = "Normal Temperature";
-  } else if (temp < 29) {
+  } else if (temp >= 30) {
     statusTemp = "High Temperature";
   } else if (temp < 10) {
     statusTemp = "Low Temperature";
-  } else {
-    statusTemp = "Normal Temperature";
   }
 
   let statusHumid = "";
-  if (temp > 80) {
+  if (hum > 80) {
     statusHumid = "Normal Humidity";
   } else {
     statusHumid = "Low Humidity";
