@@ -13,12 +13,15 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import dayjs, { Dayjs } from "dayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-
+import Modal from "@mui/material/Modal";
+import { IoAddCircleSharp } from "react-icons/io5";
 import { db } from "../../Firebase";
 import {
   collection,
@@ -29,8 +32,25 @@ import {
   doc,
 } from "firebase/firestore";
 
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  width: "fit-content",
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 const Record = () => {
   const { DarkTheme } = useContext(ThemeContext);
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   //add
   const [newDate, setNewDate] = useState("");
@@ -47,6 +67,7 @@ const Record = () => {
     refreshBags();
     document.getElementById("date-input").value = "";
     document.getElementById("quantity-input").value = "";
+    handleClose();
   };
 
   //read
@@ -88,113 +109,125 @@ const Record = () => {
         <Header />
 
         <h1 className="title-rec">Records </h1>
-        <div
-          className="cont"
-          style={{ display: "flex", justifyContent: "center" }}
-        >
-          <div
-            className="inputCont"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
+        <div className="addIconContainer">
+          <Button onClick={handleOpen}>
+            <IoAddCircleSharp className="addIcon" />
+          </Button>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
           >
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DemoContainer components={["DatePicker"]}>
-                <DatePicker
-                  type="date"
-                  id="date-input"
-                  label="Date"
-                  onChange={(event) => {
-                    setNewDate(event.target.value);
+            <Box sx={style}>
+              <div
+                className="cont"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "100%",
+                  width: "100%",
+                }}
+              >
+                <div
+                  className="inputCont"
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100%",
+                    width: "100%",
                   }}
-                  sx={{
-                    m: "1rem",
-                    "& .MuiSvgIcon-root": {
-                      color: DarkTheme ? "#39b7ed" : "#05356b", // Set the desired icon color here
-                    },
-                    "& .MuiInputLabel-root": {
-                      color: DarkTheme ? "#39b7ed" : "#05356b", // Set the desired label color here
-                    },
-                    "& .MuiOutlinedInput-root": {
-                      "& fieldset": {
-                        borderColor: DarkTheme ? "#39b7ed" : "#05356b", // Set the desired border color here
-                        paddingTop: "8px",
-                      },
-                    },
-                    "& .MuiInputLabel-root": {
-                      color: DarkTheme ? "#39b7ed" : "#05356b", // Set the desired label color here
-                    },
-                    "& input": {
-                      color: DarkTheme ? "#39b7ed" : "#05356b", // Set the desired font color here
-                    },
-                  }}
-                />
-              </DemoContainer>
-            </LocalizationProvider>
-            <TextField
-              id="quantity-input"
-              label="Number"
-              type="number"
-              variant="outlined"
-              sx={{
-                "& input": {
-                  color: DarkTheme ? "#39b7ed" : "#05356b", // Set the desired font color here
-                },
-                "& .MuiSvgIcon-root": {
-                  color: DarkTheme ? "#39b7ed" : "#05356b", // Set the desired icon color here
-                },
-                "& .MuiInputLabel-root": {
-                  color: DarkTheme ? "#39b7ed" : "#05356b", // Set the desired label color here
-                },
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: DarkTheme ? "#39b7ed" : "#05356b", // Set the desired border color here
-                  },
-                },
-                "& .MuiInputLabel-root": {
-                  color: DarkTheme ? "#39b7ed" : "#05356b", // Set the desired label color here
-                },
-              }}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              onChange={(event) => {
-                setNewBag(event.target.value);
-              }}
-            />
-            {/* <input
-              id="date-input"
-              placeholder="Date..."
-              type="date"
-              onChange={(event) => {
-                setNewDate(event.target.value);
-              }}
-            />
-            <input
-              id="quantity-input"
-              placeholder="Quantity"
-              type="number "
-              onChange={(event) => {
-                setNewBag(event.target.value);
-              }}
-            /> */}
+                >
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DemoContainer components={["DatePicker"]}>
+                      <DatePicker
+                        type="date"
+                        id="date-input"
+                        label="Date"
+                        onChange={(event) => {
+                          setNewDate(event.target.value);
+                        }}
+                        sx={{
+                          m: "1rem",
+                          width: "100%",
 
-            <Button
-              sx={{
-                fontSize: "18px",
-                marginLeft: "2rem",
-              }}
-              className="btn"
-              variant="contained"
-              size="small"
-              onClick={addBag}
-            >
-              Add Bag
-            </Button>
-          </div>
+                          "& .MuiSvgIcon-root": {
+                            color: DarkTheme ? "#39b7ed" : "#05356b", // Set the desired icon color here
+                          },
+                          "& .MuiInputLabel-root": {
+                            color: DarkTheme ? "#39b7ed" : "#05356b", // Set the desired label color here
+                          },
+                          "& .MuiOutlinedInput-root": {
+                            "& fieldset": {
+                              borderColor: DarkTheme ? "#39b7ed" : "#05356b", // Set the desired border color here
+                              paddingTop: "8px",
+                            },
+                          },
+                          "& .MuiInputLabel-root": {
+                            color: DarkTheme ? "#39b7ed" : "#05356b", // Set the desired label color here
+                          },
+                          "& input": {
+                            color: DarkTheme ? "#39b7ed" : "#05356b", // Set the desired font color here
+                          },
+                        }}
+                      />
+                    </DemoContainer>
+                  </LocalizationProvider>
+                  <TextField
+                    id="quantity-input"
+                    label="Number"
+                    type="number"
+                    variant="outlined"
+                    sx={{
+                      width: "90%",
+                      "& input": {
+                        color: DarkTheme ? "#39b7ed" : "#05356b", // Set the desired font color here
+                      },
+                      "& .MuiSvgIcon-root": {
+                        color: DarkTheme ? "#39b7ed" : "#05356b", // Set the desired icon color here
+                      },
+                      "& .MuiInputLabel-root": {
+                        color: DarkTheme ? "#39b7ed" : "#05356b", // Set the desired label color here
+                      },
+                      "& .MuiOutlinedInput-root": {
+                        "& fieldset": {
+                          borderColor: DarkTheme ? "#39b7ed" : "#05356b", // Set the desired border color here
+                        },
+                      },
+                      "& .MuiInputLabel-root": {
+                        color: DarkTheme ? "#39b7ed" : "#05356b", // Set the desired label color here
+                      },
+                    }}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    onChange={(event) => {
+                      setNewBag(event.target.value);
+                    }}
+                  />
+
+                  <Button
+                    sx={{
+                      width: "90%",
+                      fontSize: "18px",
+                      marginTop: "2rem",
+                    }}
+                    className="btn"
+                    variant="contained"
+                    size="small"
+                    onClick={addBag}
+                  >
+                    Add Bag
+                  </Button>
+                </div>
+              </div>
+            </Box>
+          </Modal>
         </div>
+
         <div
           className="tableCont"
           style={{
