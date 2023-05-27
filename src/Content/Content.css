@@ -23,9 +23,13 @@
 }
 
 .content .row.cont h2 {
-  margin-top: 0px;
+  margin: 2px;
 }
 .content .row.cont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   height: 15rem;
   width: 100%;
   grid-column: span 1;
@@ -38,7 +42,7 @@
 }
 
 .content.dark .row.cont {
-  background: #1cdb6500;
+  background: #79797900;
 }
 .content .row.cont .txt-head-dash {
   padding-bottom: 0px;
@@ -47,19 +51,19 @@
   height: 100%;
   width: 100%;
   grid-column: span 4;
-  background-color: #ffffff88;
+  background-color: #d0edfe;
 }
 .content.dark .row.headerTemp {
-  background-color: #232a3153;
+  background-color: #21212148;
 }
 .content .row.squareBags {
   height: 100%;
   width: 100%;
   grid-column: span 2;
-  background-color: #ffffff88;
+  background-color: #d0edfe;
 }
 .content.dark .row.squareBags {
-  background-color: #232a3153;
+  background-color: #21212148;
 }
 .content .row.cont .txt-head {
   color: #111418;
@@ -71,19 +75,28 @@
 }
 .content .row.cont .txt-humid {
   color: #001e45;
-  font-size: 9vh;
+  display: flex;
+  align-items: center;
+  font-size: 7vh;
 }
 .content .row.cont .txt-temp {
-  font-size: 9vh;
+  font-size: 7vh;
+  display: flex;
+  align-items: center;
   color: #001e45;
 }
 .content .row.cont .txt-bags {
-  font-size: 9vh;
+  font-size: 7vh;
+  display: flex;
+  align-items: center;
   color: #001e45;
 }
 .content .row.cont .txt-yield {
-  font-size: 9vh;
+  font-size: 7vh;
+  display: flex;
+  align-items: center;
   color: #001e45;
+  /* padding-top: 3rem; */
 }
 .content .row .divider {
   height: 1px;
@@ -91,7 +104,12 @@
   background-color: #111418;
   margin: 2px 0;
 }
-
+/* .content .row .divider-yield {
+  height: 1px;
+  width: 35%;
+  background-color: #111418;
+  margin: 0 0 2.5rem 0;
+} */
 .content .row.cont .temperature {
   display: flex;
   padding: 10px 16px;
@@ -100,44 +118,40 @@
   gap: 15px;
   color: #ffffff;
 }
-
-.txt-temp,
-.txt-humid,
-.txt-yield {
-  display: flex;
-}
 .txt-temp .unit {
-  padding-top: 15px;
+  /* padding-top: 15px; */
   font-size: 3vh;
 }
-.txt-humid .units {
-  padding-top: 30px;
-  font-size: 3rem;
-}
+.txt-humid .units,
 .txt-yield .units {
-  padding-top: 30px;
+  /* padding-top: 30px; */
   font-size: 3rem;
 }
 
 .content.dark .row .divider {
   background-color: #ffffff;
 }
-.content.dark .row.cont .txt-humid {
-  color: #0be4e8;
-}
-.content .row.cont .txt-head.temp {
-  color: #0be4e8;
-}
-.content.dark .row.cont .txt-yield {
-  color: #0be4e8;
-}
-.content.dark .row.cont .txt-bags {
-  color: #0be4e8;
-}
-.content .row.cont .last-monitor {
-  color: #38434f;
+.content.dark .row.cont .txt-humid,
+.content.dark .row.cont .txt-yield,
+.content.dark .row.cont .txt-bags,
+.content .row.cont .last-monitor,
+.content.dark .row.cont .txt-temp {
+  color: #39b7ed;
 }
 
-.content.dark .row.cont .txt-temp {
-  color: #0be4e8;
+.responsive-icon {
+  width: 5rem;
+  margin-right: 2px;
+  height: auto; /* Automatically adjust the height to maintain aspect ratio */
+}
+.responsive-icon.yieldIcon {
+  width: 3rem;
+  margin-right: 4px;
+  height: auto; /* Automatically adjust the height to maintain aspect ratio */
+}
+/* Media query for adjusting the size on smaller screens */
+@media (max-width: 600px) {
+  .responsive-icon {
+    max-width: 60px;
+  }
 }

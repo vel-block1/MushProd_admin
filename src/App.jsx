@@ -55,7 +55,7 @@ function App() {
               <Navigation />
               <Routes>
                 <Route path="/" element={<Main />} />
-                <Route path="/yield" element={<Yield />} />
+                {/* <Route path="/yield" element={<Yield />} /> */}
                 <Route path="/analytics" element={<Analytics />} />
                 <Route path="/notification" element={<Notification />} />
                 <Route path="/records" element={<Records />} />

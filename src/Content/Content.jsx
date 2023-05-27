@@ -5,8 +5,19 @@ import Linechart from "../Components/LineChart/Linechart";
 import Analytics from "../Components/AnalyticsTemplate/Analytics";
 import { getDatabase, ref, onValue, get } from "firebase/database";
 import { collection } from "firebase/firestore";
+
+// icons
+import icontemp from "../assets/raphael_temp.svg";
+import iconhumid from "../assets/mdi_water.svg";
+import iconyield from "../assets/Predict.svg";
+import iconbag from "../assets/Mushroom.svg";
+import darkIconTemp from "../assets/darkicon/raphael_temp.svg";
+import darkIconhumid from "../assets/darkicon/mdi_water.svg";
+import darkIconyield from "../assets/darkicon/Predict.svg";
+import darkIconbag from "../assets/darkicon/Mushroom.svg";
 const Content = () => {
   const { DarkTheme } = useContext(ThemeContext);
+
   const [date, setDate] = useState("");
   const [temp, setTemp] = useState("");
   const [hum, setHum] = useState("");
@@ -90,11 +101,11 @@ const Content = () => {
   }, [date]);
 
   let statusTemp = "";
-  if (temp > 10 && temp < 29) {
+  if ((temp) => 10 && temp <= 29) {
     statusTemp = "Normal Temperature";
   } else if (temp >= 30) {
     statusTemp = "High Temperature";
-  } else if (temp < 10) {
+  } else if (temp <= 10) {
     statusTemp = "Low Temperature";
   }
 
@@ -115,6 +126,11 @@ const Content = () => {
         <h2>{statusTemp}</h2>
         <div className="divider"></div>
         <h1 className="txt-temp" id="temp">
+          <img
+            className="responsive-icon"
+            src={DarkTheme ? darkIconTemp : icontemp}
+            alt="Temperature Icon"
+          />
           {temp}
           <span className="unit">°C</span>
         </h1>
@@ -124,8 +140,28 @@ const Content = () => {
         <h2>{statusHumid}</h2>
         <div className="divider"></div>
         <h1 className="txt-humid" id="humid">
+          <img
+            className="responsive-icon"
+            src={DarkTheme ? darkIconhumid : iconhumid}
+            alt="Temperature Icon"
+          />
           {hum}
           <span className="units">%</span>
+        </h1>
+      </div>
+
+      <div className="row cont">
+        <h1 className="txt-head-dash "> Total Bag</h1>
+        <h2>as of May 15,2023</h2>
+        <div className="divider"></div>
+        <h1 className="txt-bags" id="total_bags">
+          <img
+            className="responsive-icon"
+            src={DarkTheme ? darkIconbag : iconbag}
+            alt="Temperature Icon"
+          />
+
+          {totalBags}
         </h1>
       </div>
       <div className="row cont">
@@ -133,16 +169,13 @@ const Content = () => {
         <h2>May 15, 2023</h2>
         <div className="divider"></div>
         <h1 className="txt-yield" id="yield">
+          <img
+            className="responsive-icon yieldIcon"
+            src={DarkTheme ? darkIconyield : iconyield}
+            alt="Temperature Icon"
+          />
           40-43
           <span className="units">g</span>
-        </h1>
-      </div>
-      <div className="row cont">
-        <h1 className="txt-head-dash "> Total Bag</h1>
-        <h2>as of May 15,2023</h2>
-        <div className="divider"></div>
-        <h1 className="txt-bags" id="total_bags">
-          {totalBags}
         </h1>
       </div>
       <div className="row headerTemp">

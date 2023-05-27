@@ -14,12 +14,15 @@
   font-weight: bold;
 }
 .analytics header .remove {
-  color: #e12121;
+  color: #ed4343;
   margin-right: 1em;
 }
 .analytics header .added {
-  color: #3dca05;
+  color: #69e937;
 }
 .respo {
   width: 100%;
+}
+span {
+  margin: 10px;
 }

@@ -329,12 +329,12 @@ const Analytics = ({ chart_i, chart_ii, chart_iii }) => {
             height={modifiedHeightForBar_Temp}
             data={data}
           >
-            <CartesianGrid stroke="#68adb1" strokeDasharray="100 10" />
+            <CartesianGrid stroke="#68adb1" />
             <XAxis stroke="#68adb1" dataKey="name" />
             <Tooltip />
             <Legend />
-            <Bar dataKey="Removed" fill="#e12121" />
-            <Bar dataKey="Added" fill="#3dca05" />
+            <Bar dataKey="Removed" fill="#ed4343" />
+            <Bar dataKey="Added" fill="#69e937" />
           </BarChart>
         </>
       )}

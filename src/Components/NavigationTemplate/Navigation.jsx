@@ -55,9 +55,9 @@ const Navigation = () => {
       <NavLink to="/">
         <Nav Icon={TbDashboard} title={"Dashboard"} />
       </NavLink>
-      <NavLink to="/yield">
+      {/* <NavLink to="/yield">
         <Nav Icon={TbFileUpload} title={"Yield Analysis"} />
-      </NavLink>
+      </NavLink> */}
       <NavLink to="/records">
         <Nav Icon={TbFilePencil} title={"Records"} />
       </NavLink>

@@ -1,8 +1,13 @@
 import "./DateTime.css";
-import { useState } from "react";
-
+import { useState, useContext } from "react";
+import { ThemeContext } from "../../ThemeContext";
 import { FiCalendar, FiClock } from "react-icons/fi";
+
+import sun from "../../assets/ph_sun.svg";
+import darksun from "../../assets/darkicon/ph_sun.svg";
+
 const DateTime = () => {
+  const { DarkTheme } = useContext(ThemeContext);
   const date = new Date();
 
   const day = date.toLocaleDateString("en-US", { day: "numeric" });
@@ -20,17 +25,21 @@ const DateTime = () => {
   setInterval(updateTime, 1000);
 
   return (
-    <div className="datetime">
+    <div className={`datetime ${DarkTheme && "dark"}`}>
       <div className="date-div">
         {" "}
-        <FiCalendar className="icon" />
+        <img
+          className="responsive-icon-sun"
+          src={DarkTheme ? darksun : sun}
+          alt="Sun Icon"
+        />
         <h1 className="date">
           {month} {day}, {year}
         </h1>
       </div>
 
       <div className="time-div">
-        <FiClock className="icon" />
+        <FiClock className="icon" color={DarkTheme ? "#39b7ed" : "#001E45"} />
         <h1 className="time">{time}</h1>
       </div>
     </div>

@@ -4,7 +4,9 @@
   align-items: center;
   flex-direction: row;
 }
-
+.datetime.dark {
+  color: white;
+}
 .datetime .date-div {
   display: flex;
   justify-content: center;
@@ -28,4 +30,17 @@
   margin-right: 0.5rem;
   align-items: center;
   font-size: 2rem; /* use em for font-size */
+}
+
+.responsive-icon-sun {
+  width: 3rem;
+  margin-right: 10px;
+  height: auto; /* Automatically adjust the height to maintain aspect ratio */
+}
+
+/* Media query for adjusting the size on smaller screens */
+@media (max-width: 600px) {
+  .responsive-icon {
+    max-width: 60px;
+  }
 }
