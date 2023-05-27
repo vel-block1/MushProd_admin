@@ -1,8 +1,7 @@
 import "./DateTime.css";
 import { useState, useContext } from "react";
 import { ThemeContext } from "../../ThemeContext";
-import { FiCalendar, FiClock } from "react-icons/fi";
-
+import { FiClock } from "react-icons/fi";
 import sun from "../../assets/ph_sun.svg";
 import darksun from "../../assets/darkicon/ph_sun.svg";
 

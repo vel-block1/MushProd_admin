@@ -5,23 +5,17 @@
   flex: 1;
   background-color: #ffffff;
   min-height: 100vh;
-  --dm-bg: #111;
+  --dm-bg: #00142e;
   --lm-c: #ffffff;
 }
-.cont {
-  display: flex;
-  height: 100vh; /* Adjust the height as needed */
-  align-items: flex-start; /* Aligns the items at the top */
-}
 
+.title-rec {
+  font-size: 3rem;
+}
 .tableCont {
   flex: 1; /* Occupies 50% of the available space */
 }
 
-.inputCont {
-  flex: 1; /* Occupies 50% of the available space */
-  padding: 1rem; /* Add padding as desired */
-}
 header {
   display: flex;
   justify-content: flex-end;
@@ -52,10 +46,19 @@ h1 {
 /* .tblCell .btn {
   margin: 10px;
 } */
-.css-1yhpg23-MuiTableCell-root {
-  padding: 4px !important;
-  font-size: 20px !important;
+.tableContainer {
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
-.css-10jgtrz-MuiTableCell-root {
-  /* padding: ; */
+
+.tableRow {
+  border-bottom: none !important;
+}
+
+.tableCell {
+  border-bottom: none !important;
+}
+.css-1xhypcz-MuiStack-root {
+  padding-top: 0 !important;
 }

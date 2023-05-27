@@ -5,7 +5,7 @@ import Linechart from "../Components/LineChart/Linechart";
 import Analytics from "../Components/AnalyticsTemplate/Analytics";
 import { getDatabase, ref, onValue, get } from "firebase/database";
 import { collection } from "firebase/firestore";
-
+import DateTime from "../Components/DateTime/DateTime";
 // icons
 import icontemp from "../assets/raphael_temp.svg";
 import iconhumid from "../assets/mdi_water.svg";
@@ -101,7 +101,7 @@ const Content = () => {
   }, [date]);
 
   let statusTemp = "";
-  if ((temp) => 10 && temp <= 29) {
+  if (temp > 10 && temp <= 29) {
     statusTemp = "Normal Temperature";
   } else if (temp >= 30) {
     statusTemp = "High Temperature";

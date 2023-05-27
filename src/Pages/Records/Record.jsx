@@ -61,10 +61,10 @@ const Record = () => {
     const newBag = { quantity: quantity - reduce };
     await updateDoc(bagDoc, newBag);
 
-    setReduce("0");
-    reduceBagInputRef.current.value = "";
     refreshBags();
     document.getElementById("reduce-bag").value = "";
+    setReduce("0");
+    reduceBagInputRef.current.value = "";
   };
 
   //delete
@@ -87,9 +87,19 @@ const Record = () => {
       <div className={`record ${DarkTheme && "dark"}`}>
         <Header />
 
-        <h1>Records </h1>
-        <div className="cont">
-          <div className="inputCont">
+        <h1 className="title-rec">Records </h1>
+        <div
+          className="cont"
+          style={{ display: "flex", justifyContent: "center" }}
+        >
+          <div
+            className="inputCont"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DemoContainer components={["DatePicker"]}>
                 <DatePicker
@@ -99,6 +109,27 @@ const Record = () => {
                   onChange={(event) => {
                     setNewDate(event.target.value);
                   }}
+                  sx={{
+                    m: "1rem",
+                    "& .MuiSvgIcon-root": {
+                      color: DarkTheme ? "#39b7ed" : "#05356b", // Set the desired icon color here
+                    },
+                    "& .MuiInputLabel-root": {
+                      color: DarkTheme ? "#39b7ed" : "#05356b", // Set the desired label color here
+                    },
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderColor: DarkTheme ? "#39b7ed" : "#05356b", // Set the desired border color here
+                        paddingTop: "8px",
+                      },
+                    },
+                    "& .MuiInputLabel-root": {
+                      color: DarkTheme ? "#39b7ed" : "#05356b", // Set the desired label color here
+                    },
+                    "& input": {
+                      color: DarkTheme ? "#39b7ed" : "#05356b", // Set the desired font color here
+                    },
+                  }}
                 />
               </DemoContainer>
             </LocalizationProvider>
@@ -106,6 +137,26 @@ const Record = () => {
               id="quantity-input"
               label="Number"
               type="number"
+              variant="outlined"
+              sx={{
+                "& input": {
+                  color: DarkTheme ? "#39b7ed" : "#05356b", // Set the desired font color here
+                },
+                "& .MuiSvgIcon-root": {
+                  color: DarkTheme ? "#39b7ed" : "#05356b", // Set the desired icon color here
+                },
+                "& .MuiInputLabel-root": {
+                  color: DarkTheme ? "#39b7ed" : "#05356b", // Set the desired label color here
+                },
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: DarkTheme ? "#39b7ed" : "#05356b", // Set the desired border color here
+                  },
+                },
+                "& .MuiInputLabel-root": {
+                  color: DarkTheme ? "#39b7ed" : "#05356b", // Set the desired label color here
+                },
+              }}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -129,80 +180,179 @@ const Record = () => {
                 setNewBag(event.target.value);
               }}
             /> */}
-            <button onClick={addBag}> Add Bag</button>
+
+            <Button
+              sx={{
+                fontSize: "18px",
+                marginLeft: "2rem",
+              }}
+              className="btn"
+              variant="contained"
+              size="small"
+              onClick={addBag}
+            >
+              Add Bag
+            </Button>
           </div>
         </div>
-        <div className="tableCont">
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <div
+          className="tableCont"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <TableContainer
+            component={Paper}
+            className="tableContainer"
+            style={{ display: "flex", justifyContent: "center" }}
+          >
+            <Table
+              sx={{
+                justifyContent: "center",
+                minWidth: 650,
+                backgroundColor: DarkTheme ? "#001b3e" : "white",
+                color: DarkTheme ? "white" : "black",
+              }}
+              aria-label="simple table"
+            >
               <TableHead>
                 <TableRow>
-                  <TableCell align="center">Date</TableCell>
-                  <TableCell align="center">Quanitity</TableCell>
-                  <TableCell align="center"></TableCell>
+                  <TableCell
+                    sx={{
+                      fontSize: "24px",
+                      color: DarkTheme ? "white" : "black",
+                    }}
+                    align="center"
+                  >
+                    Date
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      fontSize: "24px",
+                      color: DarkTheme ? "white" : "black",
+                    }}
+                    align="center"
+                  >
+                    Quantity
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      fontSize: "24px",
+                      color: DarkTheme ? "white" : "black",
+                    }}
+                    align="center"
+                  >
+                    Remove
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {bags.map((bag) => (
-                  <TableRow key={bag.id}>
+                  <TableRow
+                    hover
+                    key={bag.id}
+                    className="tableRow"
+                    // style={{ display: "flex", alignItems: "center" }}
+                  >
                     <TableCell
                       // style={{ width: 2 }}
                       align="center"
                       component="th"
                       scope="row"
+                      sx={{
+                        m: "5px",
+                        fontSize: "3rem",
+                        color: DarkTheme ? "white" : "black",
+                      }}
+                      className="tableCell"
+                    >
+                      {/* {bag.quantity} */}
+                      May 28,2023
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        fontSize: "3rem",
+                        color: DarkTheme ? "white" : "black",
+                      }}
+                      // style={{ width: 1 }}
+                      align="center"
+                      className="tableCell"
                     >
                       {bag.quantity}
                     </TableCell>
                     <TableCell
-                      // style={{ width: 1 }}
+                      sx={{
+                        m: "1rem",
+                        color: DarkTheme ? "white" : "black",
+                      }}
                       align="center"
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                      className="tableCell"
                     >
-                      {bag.quantity}
-                    </TableCell>
-                    <TableCell sx={{ mx: 10 }} className="tblCell" align="left">
-                      {" "}
-                      <TextField
-                        style={{ width: 100 }}
-                        sx={{
-                          mx: "auto",
-                          p: 0.5,
-                          m: 0.5,
-                          textAlign: "center",
-                        }}
-                        className="txtField"
-                        id="reduce-bag"
-                        label="Quantity"
-                        type="number"
-                        size="small"
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        inputRef={reduceBagInputRef}
-                        onChange={(event) => {
-                          setReduce(event.target.value);
-                        }}
-                      />
-                      <Button
-                        sx={{ mx: "auto", p: 1, m: 1 }}
-                        className="btn"
-                        variant="contained"
-                        size="small"
-                        onClick={() => {
-                          reduceBag(bag.id, bag.quantity);
-                        }}
-                      >
-                        Remove Bag
-                      </Button>
-                      <Button
-                        color="error"
-                        variant="contained"
-                        className="btn"
-                        onClick={() => {
-                          deleteBag(bag.id);
-                        }}
-                      >
-                        Delete
-                      </Button>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <TextField
+                          style={{ width: 100 }}
+                          sx={{
+                            marginRight: 0.5, // Set the right margin
+                            textAlign: "center",
+                            color: DarkTheme ? "white" : "black",
+                            "& label": {
+                              color: "#39b7ed", // Set the desired label color here
+                            },
+                            "& .MuiOutlinedInput-root": {
+                              "& fieldset": {
+                                borderColor: "#39b7ed ", // Set the desired border color here
+                              },
+                            },
+                          }}
+                          id="reduce-bag"
+                          label="Quantity"
+                          type="number"
+                          size="small"
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          inputRef={reduceBagInputRef}
+                          onChange={(event) => {
+                            setReduce(event.target.value);
+                          }}
+                        />
+                        <Button
+                          sx={{
+                            fontSize: "18px",
+                            marginLeft: 0.5, // Set the left margin
+                            marginRight: 0.5, // Set the right margin
+                          }}
+                          className="btn"
+                          variant="contained"
+                          color="warning"
+                          size="small"
+                          onClick={() => {
+                            reduceBag(bag.id, bag.quantity);
+                          }}
+                        >
+                          Remove Bag
+                        </Button>
+                        <Button
+                          sx={{
+                            fontSize: "18px",
+                            marginLeft: 0.5, // Set the left margin
+                            marginRight: 0.5, // Set the right margin
+                          }}
+                          color="error"
+                          variant="contained"
+                          className="btn"
+                          onClick={() => {
+                            deleteBag(bag.id);
+                          }}
+                        >
+                          Delete
+                        </Button>
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))}

@@ -5,9 +5,12 @@
   flex: 1;
   background-color: #ffffff;
   min-height: 100vh;
-  --dm-bg: #111418;
+  --dm-bg: #00142e;
 }
 
+.title-notif {
+  font-size: 3rem;
+}
 .notif.dark {
   background-color: var(--dm-bg);
   color: white;
