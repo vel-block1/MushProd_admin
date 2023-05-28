@@ -310,7 +310,7 @@ const Harvested = () => {
                       align="center"
                       className="tableCell-harv"
                     >
-                      {bag.quantity}
+                      {bag.quantity} g
                     </TableCell>
                     <TableCell
                       sx={{
