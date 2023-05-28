@@ -6,17 +6,74 @@
   background-color: #ffffff;
   min-height: 100vh;
   --dm-bg: #00142e;
+  --lm-c: #ffffff;
+}
+.addIconContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 1rem;
 }
 
+.addIconButton {
+  color: #05356b;
+}
+.addIcon {
+  font-size: 4rem;
+}
 .title-notif {
+  flex: 1;
   font-size: 3rem;
+}
+.tableCont {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.header-cont {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.notif .addBags {
+  display: flex;
+
+  padding: 0rem 2rem;
+}
+h1 {
+  text-align: center;
 }
 .notif.dark {
   background-color: var(--dm-bg);
   color: white;
 }
-header {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
+.tableCont {
+  width: 100%;
+  height: 100%;
+  color: #623535;
+  margin: 0 auto;
+}
+
+.tableContainer {
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.tableRow {
+  border-bottom: none !important;
+}
+
+.tableCell {
+  border-bottom: none !important;
+}
+.css-1xhypcz-MuiStack-root {
+  padding-top: 0 !important;
 }

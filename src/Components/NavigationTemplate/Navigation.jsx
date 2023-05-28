@@ -1,9 +1,10 @@
 import Nav from "../NavIconTemplate/Nav";
 import "./Navigation.css";
 import { FiChevronLeft, FiBell } from "react-icons/fi";
-import { TbDashboard, TbFilePencil } from "react-icons/tb";
+import { TbDashboard, TbFilePencil, TbPlant } from "react-icons/tb";
 import { FiUser } from "react-icons/fi";
 import { MdSwapHoriz } from "react-icons/md";
+import { HiOutlineLogout } from "react-icons/hi";
 
 import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../../ThemeContext";
@@ -11,7 +12,6 @@ import { NavLink } from "react-router-dom";
 
 import { signOut } from "firebase/auth";
 import { auth } from "../../Firebase";
-import { HiOutlineLogout } from "react-icons/hi";
 
 const Navigation = () => {
   const [nav, setnav] = useState(false);
@@ -58,6 +58,9 @@ const Navigation = () => {
 
       <NavLink to="/records">
         <Nav Icon={TbFilePencil} title={"Records"} />
+      </NavLink>
+      <NavLink to="/harvested">
+        <Nav Icon={TbPlant} title={"Harvest"} />
       </NavLink>
       <NavLink to="/notification">
         <Nav Icon={FiBell} title={"Notification"} />

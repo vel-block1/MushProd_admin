@@ -3,6 +3,7 @@ import "./Harvested.css";
 import { useState, useContext, useEffect, useRef } from "react";
 import { ThemeContext } from "../../ThemeContext";
 import Header from "../../Components/HeaderTemplate/Header";
+
 import Input from "@mui/material/Input";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -46,6 +47,7 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+
 const Harvested = () => {
   const { DarkTheme } = useContext(ThemeContext);
   const [open, setOpen] = React.useState(false);
@@ -105,12 +107,12 @@ const Harvested = () => {
 
   return (
     <>
-      <div className={`record ${DarkTheme && "dark"}`}>
+      <div className={`harvest ${DarkTheme && "dark"}`}>
         <Header />
 
         <div className="header-cont">
-          <h1 className="title-rec">Records </h1>
-          <div className="addIconContainer">
+          <h1 className="title-harv">Harvest </h1>
+          <div className="addIconContainerHarv">
             <Button onClick={handleOpen}>
               <IoAddCircleSharp className="addIcon" />
             </Button>
@@ -121,16 +123,7 @@ const Harvested = () => {
               aria-describedby="modal-modal-description"
             >
               <Box sx={style}>
-                <div
-                  className="cont"
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    height: "100%",
-                    width: "100%",
-                  }}
-                >
+                <div className="cont-Harv">
                   <div
                     className="inputCont"
                     style={{
@@ -229,10 +222,10 @@ const Harvested = () => {
             </Modal>
           </div>
         </div>
-        <div className="tableCont">
+        <div className="tableCont-harv">
           <TableContainer
             component={Paper}
-            className="tableContainer"
+            className="tableContainer-harv"
             style={{ display: "flex", justifyContent: "center" }}
           >
             <Table
@@ -262,7 +255,7 @@ const Harvested = () => {
                     }}
                     align="center"
                   >
-                    Quantity
+                    Bags Collected
                   </TableCell>
                   <TableCell
                     sx={{
@@ -271,13 +264,20 @@ const Harvested = () => {
                     }}
                     align="center"
                   >
-                    Remove
+                    Grams Harvested
                   </TableCell>
+                  <TableCell
+                    sx={{
+                      fontSize: "24px",
+                      color: DarkTheme ? "white" : "black",
+                    }}
+                    align="center"
+                  ></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {bags.map((bag) => (
-                  <TableRow hover key={bag.id} className="tableRow">
+                  <TableRow hover key={bag.id} className="tableRow-harv">
                     <TableCell
                       align="center"
                       component="th"
@@ -287,7 +287,7 @@ const Harvested = () => {
                         fontSize: "3rem",
                         color: DarkTheme ? "white" : "black",
                       }}
-                      className="tableCell"
+                      className="tableCell-harv"
                     >
                       {/* {bag.quantity} */}
                       May 28,2023
@@ -298,7 +298,17 @@ const Harvested = () => {
                         color: DarkTheme ? "white" : "black",
                       }}
                       align="center"
-                      className="tableCell"
+                      className="tableCell-harv"
+                    >
+                      {bag.quantity}
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        fontSize: "3rem",
+                        color: DarkTheme ? "white" : "black",
+                      }}
+                      align="center"
+                      className="tableCell-harv"
                     >
                       {bag.quantity}
                     </TableCell>
@@ -312,10 +322,10 @@ const Harvested = () => {
                         display: "flex",
                         justifyContent: "center",
                       }}
-                      className="tableCell"
+                      className="tableCell-harv"
                     >
                       <div style={{ display: "flex", alignItems: "center" }}>
-                        <TextField
+                        {/* <TextField
                           style={{ width: 100 }}
                           sx={{
                             marginRight: 0.5,
@@ -341,7 +351,7 @@ const Harvested = () => {
                           onChange={(event) => {
                             setReduce(event.target.value);
                           }}
-                        />
+                        /> */}
                         <Button
                           sx={{
                             fontSize: "18px",
@@ -356,7 +366,7 @@ const Harvested = () => {
                             reduceBag(bag.id, bag.quantity);
                           }}
                         >
-                          Remove Bag
+                          Edit
                         </Button>
                         <Button
                           sx={{

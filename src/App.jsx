@@ -16,6 +16,7 @@ import Login from "./Login/Login";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./Firebase";
 import Yield from "./Pages/Yield/Yield";
+import Harvested from "./Pages/Harvested/Harvested";
 import Main from "./Main/Main";
 import Records from "./Pages/Records/Record";
 import Notification from "./Pages/Notification/Notification";
@@ -55,6 +56,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Main />} />
                 {/* <Route path="/yield" element={<Yield />} /> */}
+                <Route path="/harvested" element={<Harvested />} />
                 <Route path="/notification" element={<Notification />} />
                 <Route path="/records" element={<Records />} />
               </Routes>

@@ -1,4 +1,4 @@
-.record {
+.harvest {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -8,10 +8,17 @@
   --dm-bg: #00142e;
   --lm-c: #ffffff;
 }
-.addIconContainer {
+.addIconContainerHarv {
   display: flex;
   justify-content: flex-end;
   margin-right: 1rem;
+}
+.cont-Harv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
 }
 
 .addIconButton {
@@ -20,11 +27,11 @@
 .addIcon {
   font-size: 4rem;
 }
-.title-rec {
+.title-harv {
   flex: 1;
   font-size: 3rem;
 }
-.tableCont {
+.tableCont-harv {
   flex: 1;
   display: flex;
   justify-content: flex-start;
@@ -42,7 +49,7 @@ header {
   justify-content: space-between;
 }
 
-.record .addBags {
+.harvest .addBags {
   display: flex;
 
   padding: 0rem 2rem;
@@ -50,7 +57,7 @@ header {
 h1 {
   text-align: center;
 }
-.record.dark {
+.harvest.dark {
   background-color: var(--dm-bg);
   color: white;
 }
@@ -61,17 +68,17 @@ h1 {
   margin: 0 auto;
 }
 
-.tableContainer {
+.tableContainer-harv {
   border: none !important;
   border-radius: 0 !important;
   box-shadow: none !important;
 }
 
-.tableRow {
+.tableRow-harv {
   border-bottom: none !important;
 }
 
-.tableCell {
+.tableCell-harv {
   border-bottom: none !important;
 }
 .css-1xhypcz-MuiStack-root {
