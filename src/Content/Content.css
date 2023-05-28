@@ -12,11 +12,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* background: #1c95db9f; */
   padding: 10px;
   border-radius: 10px;
   transition: 0.2s ease;
-  /* overflow: hidden; */
 }
 .content.dark .row {
   background: #232a3153;
@@ -34,8 +32,6 @@
   width: 100%;
   grid-column: span 1;
   transition: 0.2s ease;
-
-  /* background: #0e527aca; */
 }
 .content .row.cont:hover {
   scale: 1.1;
@@ -96,7 +92,6 @@
   display: flex;
   align-items: center;
   color: #001e45;
-  /* padding-top: 3rem; */
 }
 .content .row .divider {
   height: 1px;
@@ -104,12 +99,7 @@
   background-color: #111418;
   margin: 2px 0;
 }
-/* .content .row .divider-yield {
-  height: 1px;
-  width: 35%;
-  background-color: #111418;
-  margin: 0 0 2.5rem 0;
-} */
+
 .content .row.cont .temperature {
   display: flex;
   padding: 10px 16px;
@@ -119,12 +109,10 @@
   color: #ffffff;
 }
 .txt-temp .unit {
-  /* padding-top: 15px; */
   font-size: 3vh;
 }
 .txt-humid .units,
 .txt-yield .units {
-  /* padding-top: 30px; */
   font-size: 3rem;
 }
 
@@ -142,14 +130,14 @@
 .responsive-icon {
   width: 5rem;
   margin-right: 2px;
-  height: auto; /* Automatically adjust the height to maintain aspect ratio */
+  height: auto;
 }
 .responsive-icon.yieldIcon {
   width: 3rem;
   margin-right: 4px;
-  height: auto; /* Automatically adjust the height to maintain aspect ratio */
+  height: auto;
 }
-/* Media query for adjusting the size on smaller screens */
+
 @media (max-width: 600px) {
   .responsive-icon {
     max-width: 60px;

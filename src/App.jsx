@@ -15,7 +15,6 @@ import Navigation from "./Components/NavigationTemplate/Navigation";
 import Login from "./Login/Login";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./Firebase";
-import Analytics from "./Pages/Analytics/Analytics";
 import Yield from "./Pages/Yield/Yield";
 import Main from "./Main/Main";
 import Records from "./Pages/Records/Record";
@@ -56,7 +55,6 @@ function App() {
               <Routes>
                 <Route path="/" element={<Main />} />
                 {/* <Route path="/yield" element={<Yield />} /> */}
-                <Route path="/analytics" element={<Analytics />} />
                 <Route path="/notification" element={<Notification />} />
                 <Route path="/records" element={<Records />} />
               </Routes>

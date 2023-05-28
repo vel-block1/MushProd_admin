@@ -119,11 +119,3 @@
   width: 80%;
   background-color: rgba(255, 255, 255, 0.438);
 }
-
-.navigation .bg-waves {
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: -1;
-  opacity: 0.3;
-}

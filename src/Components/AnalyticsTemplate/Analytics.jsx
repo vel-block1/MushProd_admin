@@ -15,9 +15,9 @@ import {
 } from "recharts";
 
 const Analytics = ({ chart_i, chart_ii, chart_iii }) => {
-  const realtimeDB = getDatabase();
   const [date, setDate] = useState("");
 
+  // getting date
   useEffect(() => {
     const getCurrentDate = async () => {
       const currentDate = new Date();
@@ -197,7 +197,7 @@ const Analytics = ({ chart_i, chart_ii, chart_iii }) => {
             }
           },
           {
-            onlyLast: true, // Add this option to limit the callback to the last snapshot
+            onlyLast: true,
           }
         );
       });
@@ -205,7 +205,6 @@ const Analytics = ({ chart_i, chart_ii, chart_iii }) => {
     fetchTemperatureAndHumidity(date, setData02);
     return () => {
       fetchTemperatureAndHumidity;
-      console.log(date);
     };
   }, [date]);
   //adding temp and humid value to chart
@@ -260,7 +259,7 @@ const Analytics = ({ chart_i, chart_ii, chart_iii }) => {
   //adding average value to chart
   const formattedDataAve = averages.map(
     ({ date, averageTemp, averageHumidity }) => ({
-      key: date, // Set the key to the value of the date
+      key: date,
       date,
       averageTemp,
       averageHumidity,
@@ -431,22 +430,6 @@ const Analytics = ({ chart_i, chart_ii, chart_iii }) => {
           </LineChart>
         </>
       )}
-      {/* <ul>  
-        {data02.map((item) => (
-          <li key={item.time}>
-            Time: {item.time}, Temperature: {item.temperature} Humidity:
-            {item.humidity}
-          </li>
-        ))}
-      </ul> */}
-      {/* {averages.map((average) => (
-        <div key={average.date}>
-          <p>Date: {average.date}</p>
-          <p>Average Temperature: {average.averageTemp}</p>
-          <p>Average Humidity: {average.averageHumidity}</p>
-          <hr />
-        </div>
-      ))} */}
     </div>
   );
 };

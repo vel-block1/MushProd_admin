@@ -1,5 +1,5 @@
 import * as React from "react";
-import "./Record.css";
+import "./Harvested.css";
 import { useState, useContext, useEffect, useRef } from "react";
 import { ThemeContext } from "../../ThemeContext";
 import Header from "../../Components/HeaderTemplate/Header";
@@ -46,7 +46,7 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-const Record = () => {
+const Harvested = () => {
   const { DarkTheme } = useContext(ThemeContext);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -386,4 +386,4 @@ const Record = () => {
   );
 };
 
-export default Record;
+export default Harvested;

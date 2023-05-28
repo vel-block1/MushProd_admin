@@ -1,11 +1,12 @@
 import { useContext, useState, useEffect } from "react";
 import "./Content.css";
 import { ThemeContext } from "../ThemeContext";
-import Linechart from "../Components/LineChart/Linechart";
 import Analytics from "../Components/AnalyticsTemplate/Analytics";
-import { getDatabase, ref, onValue, get } from "firebase/database";
-import { collection } from "firebase/firestore";
-import DateTime from "../Components/DateTime/DateTime";
+import { getDatabase, ref, onValue } from "firebase/database";
+import { collection, getDocs } from "firebase/firestore";
+
+import { db } from "../Firebase";
+
 // icons
 import icontemp from "../assets/raphael_temp.svg";
 import iconhumid from "../assets/mdi_water.svg";
@@ -15,25 +16,23 @@ import darkIconTemp from "../assets/darkicon/raphael_temp.svg";
 import darkIconhumid from "../assets/darkicon/mdi_water.svg";
 import darkIconyield from "../assets/darkicon/Predict.svg";
 import darkIconbag from "../assets/darkicon/Mushroom.svg";
+
 const Content = () => {
   const { DarkTheme } = useContext(ThemeContext);
+  const usersCollectionRef = collection(db, "bags");
 
   const [date, setDate] = useState("");
   const [temp, setTemp] = useState("");
   const [hum, setHum] = useState("");
   const [bags, setBags] = useState("");
-  // getting all records of bags
 
-  let totalBags = 0;
+  // getting all records of bags
   const refreshBags = async () => {
     try {
       const querySnapshot = await getDocs(usersCollectionRef);
       const bagsData = querySnapshot.docs.map((doc) => doc.data());
 
-      const totalBags = bagsData.reduce((sum, bag) => sum + bag.quantity, 0);
-
-      console.log("Total Bags:", totalBags);
-      return totalBags;
+      setBags(bagsData.reduce((sum, bag) => sum + bag.quantity, 0));
     } catch (error) {
       console.log(error);
       return 0;
@@ -43,7 +42,7 @@ const Content = () => {
     refreshBags();
   }, []);
 
-  //getting all tmep and humid data
+  //getting all temp and humid data
   const fetchTemperatureAndHumidity = async (date) => {
     const realtimeDB = getDatabase();
     const getDateOnTemp = ref(realtimeDB, date);
@@ -59,23 +58,21 @@ const Content = () => {
               humidity = childData.Humd;
             });
             resolve({ temperature, humidity });
-            // setTemp(temperature);
+
             setHum(humidity);
             setTemp(temperature);
-            // console.log(" Temp " + temperature);
-            // console.log(" Humid " + humidity);
           } else {
             console.log("No child nodes found.");
             reject(new Error("No child nodes found."));
           }
         },
         {
-          onlyLast: true, // Add this option to limit the callback to the last snapshot
+          onlyLast: true,
         }
       );
     });
   };
-
+  //getting date and formatting
   useEffect(() => {
     const getCurrentDate = async () => {
       const currentDate = new Date();
@@ -87,7 +84,7 @@ const Content = () => {
     };
     getCurrentDate();
   }, []);
-
+  //getting current readings
   useEffect(() => {
     const getCurrentTemp = async () => {
       const { temperature, humidity } = await fetchTemperatureAndHumidity(date);
@@ -100,6 +97,7 @@ const Content = () => {
     }
   }, [date]);
 
+  //setting remarks on temp and humid
   let statusTemp = "";
   if (temp > 10 && temp <= 29) {
     statusTemp = "Normal Temperature";
@@ -108,13 +106,13 @@ const Content = () => {
   } else if (temp <= 10) {
     statusTemp = "Low Temperature";
   }
-
   let statusHumid = "";
   if (hum > 80) {
     statusHumid = "Normal Humidity";
   } else {
     statusHumid = "Low Humidity";
   }
+
   return (
     <div className={`content ${DarkTheme && "dark"}`}>
       <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
@@ -160,8 +158,7 @@ const Content = () => {
             src={DarkTheme ? darkIconbag : iconbag}
             alt="Temperature Icon"
           />
-
-          {totalBags}
+          {bags}
         </h1>
       </div>
       <div className="row cont">
@@ -187,20 +184,6 @@ const Content = () => {
       <div className="row squareBags">
         <Analytics chart_iii></Analytics>
       </div>
-
-      {/* <div className="row squareBags ">
-        <StyledEngineProvider injectFirst css={containerStyle}>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DateCalendar
-              readOnly
-              css={css`
-                width: 100%;
-                max-width: 400px;
-              `}
-            />
-          </LocalizationProvider>
-        </StyledEngineProvider>
-      </div> */}
     </div>
   );
 };

@@ -8,7 +8,6 @@ const Main = () => {
 
   return (
     <div className={`main ${DarkTheme && "dark"}`}>
-      {/* <Header /> */}
       <DateTime />
       <Content />
     </div>

@@ -29,16 +29,15 @@
 .datetime .icon {
   margin-right: 0.5rem;
   align-items: center;
-  font-size: 2rem; /* use em for font-size */
+  font-size: 2rem;
 }
 
 .responsive-icon-sun {
   width: 3rem;
   margin-right: 10px;
-  height: auto; /* Automatically adjust the height to maintain aspect ratio */
+  height: auto;
 }
 
-/* Media query for adjusting the size on smaller screens */
 @media (max-width: 600px) {
   .responsive-icon {
     max-width: 60px;
